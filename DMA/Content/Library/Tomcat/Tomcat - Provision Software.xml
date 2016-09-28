@@ -20,7 +20,7 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
   <name>Tomcat - Provision Software</name>
   <categories/>
   <inputs>
-    <userInputBinding id="fb16c13f-f50f-4684-8579-3be89014976e">
+    <staticBinding id="2123208f-36fe-4dd1-b9b8-cb6b7739cd58">
       <assignFromContext>true</assignFromContext>
       <assignToContext>true</assignToContext>
       <inputType>STRING</inputType>
@@ -29,12 +29,10 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
       <isPersisted>false</isPersisted>
       <inputSymbol>serverTarget</inputSymbol>
       <listDelimiter>,</listDelimiter>
+      <value>barney.comics.hq</value>
       <record>false</record>
-      <prompt></prompt>
-      <isMultiSelect>false</isMultiSelect>
-      <sourceDelimiter>|</sourceDelimiter>
-    </userInputBinding>
-    <userInputBinding id="595923dc-89c4-4cfe-8da6-3cc433a8ec5d">
+    </staticBinding>
+    <staticBinding id="4519b1e4-8614-4475-b4ab-0a45d6796932">
       <assignFromContext>true</assignFromContext>
       <assignToContext>true</assignToContext>
       <inputType>STRING</inputType>
@@ -43,12 +41,10 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
       <isPersisted>false</isPersisted>
       <inputSymbol>serverTargetUsername</inputSymbol>
       <listDelimiter>,</listDelimiter>
+      <value>root</value>
       <record>false</record>
-      <prompt></prompt>
-      <isMultiSelect>false</isMultiSelect>
-      <sourceDelimiter>|</sourceDelimiter>
-    </userInputBinding>
-    <userInputBinding id="948353fa-faa0-4d4d-bb51-9eacab5d859a">
+    </staticBinding>
+    <staticBinding id="92d4f039-51a4-4ff2-a7d5-5484e59e09ef">
       <assignFromContext>true</assignFromContext>
       <assignToContext>true</assignToContext>
       <inputType>ENCRYPTED</inputType>
@@ -57,11 +53,9 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
       <isPersisted>false</isPersisted>
       <inputSymbol>serverTargetPassword</inputSymbol>
       <listDelimiter>,</listDelimiter>
+      <value>{OBFUSCATED}2pGate/IaRI5B2pvB9Og/Q==</value>
       <record>false</record>
-      <prompt></prompt>
-      <isMultiSelect>false</isMultiSelect>
-      <sourceDelimiter>|</sourceDelimiter>
-    </userInputBinding>
+    </staticBinding>
     <staticBinding id="41ed309e-6025-4e82-b290-4183ff97069b">
       <assignFromContext>true</assignFromContext>
       <assignToContext>true</assignToContext>
@@ -86,7 +80,7 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
       <value>/opt/dma_client</value>
       <record>false</record>
     </staticBinding>
-    <userInputBinding id="d1297203-6614-49b8-868a-f6cdbed53e91">
+    <staticBinding id="6f593a92-b4d1-4a5b-aed7-984e3150e907">
       <assignFromContext>true</assignFromContext>
       <assignToContext>true</assignToContext>
       <inputType>STRING</inputType>
@@ -95,12 +89,10 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
       <isPersisted>false</isPersisted>
       <inputSymbol>domainLocation</inputSymbol>
       <listDelimiter>,</listDelimiter>
+      <value>/apps/dmademo</value>
       <record>false</record>
-      <prompt></prompt>
-      <isMultiSelect>false</isMultiSelect>
-      <sourceDelimiter>|</sourceDelimiter>
-    </userInputBinding>
-    <userInputBinding id="0a59ad56-b970-4827-b505-2a2ad65d6b85">
+    </staticBinding>
+    <staticBinding id="3c8f7681-81ad-4eaa-96e8-e8aa2cc6d044">
       <assignFromContext>true</assignFromContext>
       <assignToContext>true</assignToContext>
       <inputType>STRING</inputType>
@@ -109,11 +101,9 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
       <isPersisted>false</isPersisted>
       <inputSymbol>downloadLocation</inputSymbol>
       <listDelimiter>,</listDelimiter>
+      <value>/tmp/dma</value>
       <record>false</record>
-      <prompt></prompt>
-      <isMultiSelect>false</isMultiSelect>
-      <sourceDelimiter>|</sourceDelimiter>
-    </userInputBinding>
+    </staticBinding>
     <userInputBinding id="e5791c36-e616-4253-8815-b12ca800e214">
       <assignFromContext>true</assignFromContext>
       <assignToContext>true</assignToContext>
@@ -128,7 +118,7 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
       <isMultiSelect>false</isMultiSelect>
       <sourceDelimiter>|</sourceDelimiter>
     </userInputBinding>
-    <userInputBinding id="355f207d-dd24-4078-b5d9-92f060cc6f27">
+    <staticBinding id="2efb2bb9-dc3c-4ea1-b0b9-57a7da4a117b">
       <assignFromContext>true</assignFromContext>
       <assignToContext>true</assignToContext>
       <inputType>STRING</inputType>
@@ -137,12 +127,10 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
       <isPersisted>false</isPersisted>
       <inputSymbol>installDir</inputSymbol>
       <listDelimiter>,</listDelimiter>
+      <value>/tmp/dma/tomcat</value>
       <record>false</record>
-      <prompt></prompt>
-      <isMultiSelect>false</isMultiSelect>
-      <sourceDelimiter>|</sourceDelimiter>
-    </userInputBinding>
-    <userInputBinding id="80a7c122-25d4-4a0e-a02c-d170ec5752e8">
+    </staticBinding>
+    <staticBinding id="bcb58bed-5eaa-4e6d-bded-df64597cb4ee">
       <assignFromContext>true</assignFromContext>
       <assignToContext>true</assignToContext>
       <inputType>STRING</inputType>
@@ -151,30 +139,10 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
       <isPersisted>false</isPersisted>
       <inputSymbol>javaBinaryArchive</inputSymbol>
       <listDelimiter>,</listDelimiter>
+      <value>jdk-8u92-linux-x64.tar.gz</value>
       <record>false</record>
-      <prompt></prompt>
-      <isMultiSelect>false</isMultiSelect>
-      <sourceDelimiter>|</sourceDelimiter>
-    </userInputBinding>
-    <userInputBinding id="77ed3f48-fa11-4621-8e34-a14a5757130c">
-      <assignFromContext>true</assignFromContext>
-      <assignToContext>true</assignToContext>
-      <inputType>STRING</inputType>
-      <isList>false</isList>
-      <required>true</required>
-      <isPersisted>false</isPersisted>
-      <inputSymbol>server.BecomeRoutine</inputSymbol>
-      <listDelimiter>,</listDelimiter>
-      <record>false</record>
-      <prompt></prompt>
-      <isMultiSelect>false</isMultiSelect>
-      <link>
-        <refId>0b746572-2527-43de-9b5e-ac54d94c8b6e</refId>
-        <refName>ServerBecomeRoutine</refName>
-      </link>
-      <sourceDelimiter>|</sourceDelimiter>
-    </userInputBinding>
-    <userInputBinding id="2dfdd8bc-1814-413b-9e78-593b1fb05453">
+    </staticBinding>
+    <staticBinding id="7a521bde-a11b-4e9c-a540-7c7bc32585f5">
       <assignFromContext>true</assignFromContext>
       <assignToContext>true</assignToContext>
       <inputType>STRING</inputType>
@@ -183,12 +151,10 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
       <isPersisted>false</isPersisted>
       <inputSymbol>tomcatBinaryArchive</inputSymbol>
       <listDelimiter>,</listDelimiter>
+      <value>apache-tomcat-7.0.69.tar.gz</value>
       <record>false</record>
-      <prompt></prompt>
-      <isMultiSelect>false</isMultiSelect>
-      <sourceDelimiter>|</sourceDelimiter>
-    </userInputBinding>
-    <userInputBinding id="92d9392b-f491-49ab-9cd3-7a27615fa0e2">
+    </staticBinding>
+    <staticBinding id="11da92df-87a4-4c7e-8960-6106b87f9c69">
       <assignFromContext>true</assignFromContext>
       <assignToContext>true</assignToContext>
       <inputType>STRING</inputType>
@@ -197,11 +163,9 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
       <isPersisted>false</isPersisted>
       <inputSymbol>tomcatGroup</inputSymbol>
       <listDelimiter>,</listDelimiter>
+      <value>root</value>
       <record>false</record>
-      <prompt></prompt>
-      <isMultiSelect>false</isMultiSelect>
-      <sourceDelimiter>|</sourceDelimiter>
-    </userInputBinding>
+    </staticBinding>
     <userInputBinding id="d2d7e7af-d520-403b-a31e-f15fb61d5d9e">
       <assignFromContext>true</assignFromContext>
       <assignToContext>true</assignToContext>
@@ -216,7 +180,7 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
       <isMultiSelect>false</isMultiSelect>
       <sourceDelimiter>|</sourceDelimiter>
     </userInputBinding>
-    <userInputBinding id="87db7e5d-6d32-4777-85bd-630254f37b9e">
+    <staticBinding id="e9fe893d-5790-473a-ad7e-be602ca78d98">
       <assignFromContext>true</assignFromContext>
       <assignToContext>true</assignToContext>
       <inputType>STRING</inputType>
@@ -225,11 +189,9 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
       <isPersisted>false</isPersisted>
       <inputSymbol>tomcatUser</inputSymbol>
       <listDelimiter>,</listDelimiter>
+      <value>root</value>
       <record>false</record>
-      <prompt></prompt>
-      <isMultiSelect>false</isMultiSelect>
-      <sourceDelimiter>|</sourceDelimiter>
-    </userInputBinding>
+    </staticBinding>
     <staticBinding id="eb4d666a-abb4-4dee-be35-f2a6173c9b80">
       <assignFromContext>true</assignFromContext>
       <assignToContext>true</assignToContext>
@@ -703,17 +665,17 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
           <value>${javaBinaryArchive}</value>
           <record>false</record>
         </staticBinding>
-        <staticBinding id="275eee9c-cd01-46c8-ad7b-5011fc092cbc">
+        <staticBinding id="601b89c6-df00-420c-8032-1b0f25e6993c">
           <annotation>Description</annotation>
           <assignFromContext>false</assignFromContext>
-          <assignToContext>false</assignToContext>
+          <assignToContext>true</assignToContext>
           <inputType>STRING</inputType>
           <isList>false</isList>
           <required>false</required>
           <isPersisted>false</isPersisted>
           <inputSymbol>server.BecomeRoutine</inputSymbol>
           <listDelimiter>,</listDelimiter>
-          <value>${server.BecomeRoutine}</value>
+          <value>su</value>
           <record>false</record>
         </staticBinding>
         <staticBinding id="2490b59b-1535-4988-b8b3-41eba89b1c1a">
@@ -7253,7 +7215,7 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
       <resultContextKey>DMA Remote Copy</resultContextKey>
       <userPrompt></userPrompt>
       <bindings>
-        <staticBinding id="493fb7a1-150c-4f8e-a89f-bfb9ff382a9f">
+        <staticBinding id="464670f6-e4bb-4ca1-a2a4-f3decabfa3ae">
           <annotation>Description</annotation>
           <assignFromContext>false</assignFromContext>
           <assignToContext>false</assignToContext>
@@ -7266,7 +7228,7 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
           <value>${targetDirectory}</value>
           <record>false</record>
         </staticBinding>
-        <staticBinding id="721ba46c-46b1-4597-bb0b-dfa3efa36e65">
+        <staticBinding id="4ce339bf-f7d5-4237-a7ab-c8cedbb1a600">
           <annotation>Description</annotation>
           <assignFromContext>false</assignFromContext>
           <assignToContext>false</assignToContext>
@@ -7279,7 +7241,7 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
           <value>${downloadSourcePath}</value>
           <record>false</record>
         </staticBinding>
-        <staticBinding id="175a36ce-782f-42c4-b351-7e5cc195f740">
+        <staticBinding id="326279f7-2967-48a7-bd3a-1a0876541794">
           <annotation>Description</annotation>
           <assignFromContext>false</assignFromContext>
           <assignToContext>false</assignToContext>
@@ -7292,7 +7254,7 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
           <value>${downloadSourceHost}</value>
           <record>false</record>
         </staticBinding>
-        <staticBinding id="65cb3764-0bb9-468e-a2ab-1c6a2a533468">
+        <staticBinding id="ddd79ae5-e8cd-424d-8483-c06f39ae759d">
           <annotation>Description</annotation>
           <assignFromContext>false</assignFromContext>
           <assignToContext>false</assignToContext>
@@ -7305,7 +7267,7 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
           <value>${serverTarget}</value>
           <record>false</record>
         </staticBinding>
-        <staticBinding id="e21464ed-094d-490c-9e93-ff01e031e551">
+        <staticBinding id="489fed16-b8d9-4c78-99a0-351de199b88b">
           <annotation>Description</annotation>
           <assignFromContext>false</assignFromContext>
           <assignToContext>false</assignToContext>
@@ -7318,7 +7280,7 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
           <value>${serverTargetUsername}</value>
           <record>false</record>
         </staticBinding>
-        <staticBinding id="190c4c01-a8e4-413a-a7e4-c38fc784ed0f">
+        <staticBinding id="aa3b719f-4178-46c8-aace-20820fc20f8e">
           <annotation>Description</annotation>
           <assignFromContext>false</assignFromContext>
           <assignToContext>false</assignToContext>
@@ -7331,7 +7293,7 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
           <value>${serverTargetPassword}</value>
           <record>false</record>
         </staticBinding>
-        <staticBinding id="3490e5c6-cc5d-4b8a-a35f-4e2bee27dbef">
+        <staticBinding id="4f2ad39d-9779-4e40-9b7a-e57dd6caf2f7">
           <annotation>Description</annotation>
           <assignFromContext>false</assignFromContext>
           <assignToContext>false</assignToContext>
@@ -7344,7 +7306,7 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
           <value>${downloadList}</value>
           <record>false</record>
         </staticBinding>
-        <staticBinding id="698ecd88-caf5-4af6-86cf-c0845cd6fa11">
+        <staticBinding id="e0bd341d-9c44-40d9-a39e-94a500f82404">
           <annotation>Description</annotation>
           <assignFromContext>false</assignFromContext>
           <assignToContext>false</assignToContext>
@@ -7357,7 +7319,7 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
           <value>${downloadFromSA}</value>
           <record>false</record>
         </staticBinding>
-        <staticBinding id="c20ab2f2-8f76-4a53-ba27-104899c68256">
+        <staticBinding id="62a43b92-51af-4a31-a846-6d11083c7b16">
           <annotation>Description</annotation>
           <assignFromContext>false</assignFromContext>
           <assignToContext>false</assignToContext>
@@ -7415,7 +7377,7 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
       </transitions>
       <properties/>
       <opRef>
-        <refId>97fc3179-82c6-4ab5-8d4e-f00c44674671</refId>
+        <refId>6cedd319-baa7-4b09-a5e5-455b87e230b8</refId>
       </opRef>
       <assignments>
         <flowVariableAssignment id="24f63a31-8e0f-405b-83ec-c39e7e8949c2">
@@ -8252,12 +8214,6 @@ bd071cb7-d8be-49df-92b9-17668d158a6d.f67e8dd2-0b00-4d30-aa30-964c061a7555.descri
       </bounds>
       <layer>-1</layer>
       <hideInbound>false</hideInbound>
-      <iconSpec id="bceb41fe-e978-4bea-8bd5-84f3219beed8">
-        <baseIcon>return_failure.png</baseIcon>
-        <basePath>System</basePath>
-        <readOnly>true</readOnly>
-        <layers/>
-      </iconSpec>
       <addResultToRunContext>false</addResultToRunContext>
       <isCriticalStep>false</isCriticalStep>
       <isNonBlocking>false</isNonBlocking>

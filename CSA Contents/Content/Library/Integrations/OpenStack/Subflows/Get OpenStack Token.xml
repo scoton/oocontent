@@ -1,0 +1,1394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow id="50ac91e3-02af-4e1e-84d8-0c36b0605c45">
+  <descriptionCdata><![CDATA[50ac91e3-02af-4e1e-84d8-0c36b0605c45.0e41bb10-eef3-4805-bce4-e2073141d580.description=<pre>\nTakes in the two results from an HTTP Client call that can contain an error message and attempts to choose which message is the correct one to return as <FailureMessage>. If neither input contains a message, a default message is returned. \n\nInputs\:\n    document - The result from HTTP Client operations which is the body of the HTTP document returned by the call. \n    errorMessage - This result from HTTP Client operations will contain a message for  HTTP  calls that returns an error status.\n\nResults\:\n    FailureMessage - This is the primary output. The final error message returned to the user.\n\nResponses\:\n    success - The operation completed as stated in the description. This is the only response. A message is returned in all situations.\n</pre>
+50ac91e3-02af-4e1e-84d8-0c36b0605c45.9bd9bb1a-35c0-49eb-82b4-af79de61ca81.description=<pre>\nService to perform an HTTP POST via the Java HTTP Client.\n\nInputs\:\n    url - The URL to send the HTTP POST request to.\n    username - The username to use for authentication to the URL. For NTLM authentication, the required format is domain\\user.\n    password - The password to use for authentication to the URL.\n    authType - The authentication type that this operation uses when trying to execute the request on the target server.\nValid values\: basic, form, digest, ntlm, kerberos, anonymous (no authentication).\nDefault value\: anonymous - authentication not used when executing the request.\n    kerberosConfFile - The path to the Kerberos configuration file. If this input is empty the kdc (Key Distribution Center) and realm will get their values from the full domain name which is obtained from the url of the web server.\n    timeout - The number of milliseconds to wait for a connection to be established. This input should be assigned a value greater than or equal to zero. A timeout value of zero is an infinite timeout.\nDefault value\: 0.\n    useCookies - If true, enables cookie tracking. Cookies will be stored between consecutive calls. This is a boolean input. If a non-boolean value is specified, it will take the default value.\nDefault value\: true.\n    proxy - The hostname or IP address of a computer that acts as a proxy server.\n    proxyPort - The port on the proxy server to connect to.\n    proxyUsername - The username to use when connecting to the proxy server.\n    proxyPassword - The password to use when connecting to the proxy server.\n    encodeURL - If true, automatically encodes the URL. This is a boolean input. If a non-boolean value is specified, it will take the default value.\nDefault value\: false.\n    file - A file to be posted by this operation using the HTTP POST method. This should be a path to a file/document on the disk.\n    string - The raw text to be posted by this operation using the HTTP POST method.\n    postDocument - This is a hidden input and is only considered when 'string' is unassigned. This is deprecated and you should use the 'string' input instead.\n    contentType - The content type that should be set in the request header, representing the MIME-type of the data in the message body.\nExamples\: "text/html", "text/html; charset\=UTF-8", "application/x-www-form-urlencoded".\n    characterSet - The character encoding of the text to be posted. If not specified this will be taken from the 'charset' field that can be specified in the contentType input. If the 'charset' field is absent it will be set to ISO-8859-1 by default.\n    trustAllRoots - If true, enables weak security over SSL. A SSL certificate is trusted even if no trusted CA issued it.\nDefault value\: false.\n    keystore - URL of the keystore file or local path to it (e.g. %JAVA_HOME%/jre/lib/security/cacerts). It may be empty if HTTPS client  authentication is not to be used.\n    keystorePassword - Password to unlock the keystore.\n    trustKeystore - URL of the truststore file or local path to it (e.g. %JAVA_HOME%/jre/lib/security/cacerts). It may be empty if HTTPS server authentication is not to be used.\n    trustPassword - Password to unlock the truststore.\n    headerNamesList - A list containing the names of headers that should be used for the request.\nExample\: Accept,Content-Type\n    headerValuesList - A list containing the values of headers that should be used for the request. \nExample\: text/plain,application/x-www-form-urlencoded\n    queryNamesList - A list containing the names of query parameters that should be used for the request. \nExample\: parameterName1,parameterName2 \n    queryValuesList - A list containing the values of query parameters that should be used for the request. \nExample\: parameterValue1,parameterValue2\n    delimiter - A delimiter that separates the elements in the names and values lists.\nDefault value\: , (comma).\n\nResults\: \n    resultText - The raw result of the operation.\n    document - The complete document returned by the Http Client Post Raw operation.\n    PageLoadTimeInMS - The number of milliseconds taken for the page to load.\n    ResponseTimeInMS - The number of milliseconds taken before the server responded.\n    exception - If an error occurred, the stack trace of the thrown error.\n    errorMessage - If an error occurred, an informational message that may help determine the cause of the error.\n    httpResult - A textual reason phrase describing the HTTP response that the web server returned for the request that this operation sent. This result contains the HTTP response status (e.g. SUCCESS, PAGE_NOT_FOUND, UNAUTHORIZED, FORBIDDEN, ...) or GENERAL_ERROR in case the HTTP request could not be executed by the operation.\n    responseHeaders - A list containing all the headers of the response message, separated by the delimiter.\n\nResponses\:\n    success - The POST command completed.\n    PAGE_NOT_FOUND - The URL specified to POST from could not be found.\n    INFORMATIONAL - The POST was not fully processed, the server responded with an informational response.\n    REDIRECTION - The specified URL has moved.\n    failure - The POST operation failed.\n\nNotes\:\n1. You can use keytool to import an ssl certificate in a keystore. For example to import a certificate in the Java cacerts keystore you should run\: keytool -import -file c\:/../<your_cert>.cer -alias <your_alias> -keystore %JAVA_HOME%/jre/lib/security/cacerts -keystorepass changeit. If the keystore does not exist the command will try to create a new one containing only your certificate.\n2. You can use keytool to create a certificate chain through the following command\: \n   keytool -genkey -dname "cn\=Mark Jones, ou\=JavaSoft, o\=Sun, c\=US" \n      -alias business -keypass kpi135 -keystore C\:\\working\\mykeystore \n      -storepass ab987c -validity 180\nIt creates a certificate chain in a new keystore containing only one certificate. This command is useful in case of ssl client authentication because the KeyManager ignores any certificates which are not included in a certificate chain.\n3. If trustAllRoots \= false and trustKeystore is empty, the operation will try to use the default trust store with the password "changeit". (i.e.  %JAVA_HOME%/jre/lib/security/cacerts) \n4. If the authentication type is Kerberos you might need to add a SPN for the web server's computer account. In order to do this, you can use ADUC (Active Directory Users and Computers) with "Advanced Features" enabled. Just go to the web server's computer account (e.g. CN\=<web_server_name>,CN\=Computers,DC\=domain,DC\=com), open the "Properties" window and hit the "Attribute Editor" tab. There should be an attribute named "servicePrincipalName". Observe the values of this attribute and add your SPN if not present (e.g. HTTP/<web_server_FQDN>\:port).\n5. If you need to specify the request header fields, consider using the "headerNamesList" and "headerValuesList" inputs. The operation also accepts hidden inputs whose names begin with "header_", but this deprecated. You can add multiple headers.  For example, add an input name called "header_Content-Type" with a value as "text/html" and/or an input name called "header_Content-Length" with a value as "348".  The operation will strip off the "header_" prefix from the input name first, and the "Content-Type" and/or "Content-Length" header should be created with the value you specify. If you specify the same header both through the "headerNamesList" and through a "header_" hidden input, then the value from the "headerValuesList" list will be used and not the hidden input's value.\n6. If you need to specify query parameters when making the request, consider using the \u201CqueryNamesList\u201D and \u201CqueryValuesList\u201D inputs. The operation also accepts including query parameters in the url (Example\: http\://hostname\:80/page.asp?parameterName1\=parameterValue1&parameterName2\=parameterValue2). If you specify the same query parameter both through the "queryNamesList" and through the url input, then the value from the "queryValuesList" list will be used and not the one included in the url.\n7. Currently, the only supported application server when using form-based authentication is Apache Tomcat.\n</pre>\n
+]]></descriptionCdata>
+  <annotation></annotation>
+  <name>Get OpenStack Token</name>
+  <categories/>
+  <inputs/>
+  <possibleResponses>
+    <opResponse id="d968f03d-bd11-4859-8953-5173169f147f">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="e0e0015c-18f3-45ee-b8ea-40dd89dce800">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="ed57a03e-9f27-4549-a11d-cab62b68802b">
+      <annotation></annotation>
+      <name>unknown</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="f14040ee-d6e6-41ed-928f-7b4f46c66975">
+    <annotation></annotation>
+    <name>FailureMessage</name>
+    <fieldName>FailureMessage</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="82d9724d-5f70-4370-a801-ed60403dba95">
+    <baseIcon>flow.png</baseIcon>
+    <basePath>System</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <callouts/>
+  <checkPointFlow>true</checkPointFlow>
+  <compatibleRuntimeContext>false</compatibleRuntimeContext>
+  <historyCheckPointFlow>true</historyCheckPointFlow>
+  <steps>
+    <step id="9bd9bb1a-35c0-49eb-82b4-af79de61ca81">
+      <annotation>50ac91e3-02af-4e1e-84d8-0c36b0605c45.9bd9bb1a-35c0-49eb-82b4-af79de61ca81.description</annotation>
+      <name>Http Client Post Raw</name>
+      <bounds>
+        <x>171.0</x>
+        <y>45.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <iconSpec id="76a331f4-69c0-44a5-9e1f-f6ab15dc541b">
+        <baseIcon>earth.png</baseIcon>
+        <basePath>/Networking/</basePath>
+        <readOnly>false</readOnly>
+        <layers>
+          <iconSpec id="d9507690-25ce-48cb-9cdd-422660f8c6ea">
+            <baseIcon>send.png</baseIcon>
+            <basePath>/Annotations/</basePath>
+            <readOnly>false</readOnly>
+            <layers/>
+          </iconSpec>
+        </layers>
+      </iconSpec>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings>
+        <staticBinding id="27432f33-2237-4231-aaf0-82ed8b593eab">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>url</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>https://${OpenStack_Host}:${OpenStack_Port}/v2.0/tokens</value>
+          <record>false</record>
+        </staticBinding>
+        <identityBinding id="5f6984b5-dd00-4103-901c-ba521af6f80e">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>username</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <link>
+            <refId>4d45058e-50b9-432f-8d63-8f39a064e251</refId>
+          </link>
+          <identityAttribute>USERNAME</identityAttribute>
+        </identityBinding>
+        <identityBinding id="7d3e976b-9adf-4125-8572-c9e85b82ac9e">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>ENCRYPTED</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>password</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <link>
+            <refId>4d45058e-50b9-432f-8d63-8f39a064e251</refId>
+          </link>
+          <identityAttribute>PASSWORD</identityAttribute>
+        </identityBinding>
+        <staticBinding id="eb6fc742-ecf8-4183-9c5d-c09029896edd">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>authType</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="6ab5b91e-cd27-4b1d-a819-201137ae5780">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>kerberosConfFile</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="f77cbad8-29d2-4c59-81f2-7ad7e698945d">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>file</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="0f5c1436-a012-42d1-b9c5-1501a4bfb3f8">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>ENCRYPTED</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>string</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>{OBFUSCATED}qg+NjXzuRkuv2ZP3v6PghmHP1lBDFZANYoB6i7EGq2GOqI3WQfH4UgUYCnQueNV+9/4YyZt7pMTB
+TxzJX9fE+SFhXiP54LfrJCXZg02o6KhQlCA8FSlwmBMRmvphPRxfhJZrZ/MshCvtRZO9pbCFjBO3
+xMzpIOXNbKHNmvit9Qt8RV7NY1eAQOrfy5UzO0PeAMdR+52uVgDIKaIGLS/HvZMkvXf2SkOCT7cs
+jrF0PcDTs87x33uiC4xuypAa5dS6x5MspPS2bj8bUi1H8RW6xA==</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="b4a9a386-b148-4324-aa44-2fd486243038">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>contentType</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>application/json; charset=UTF-8</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="b2d7725c-ed75-4e2e-b097-49d412c0fa2d">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>characterSet</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="de938a03-538b-4e5c-bedb-d5c6897e5f20">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>timeout</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="d19db3ee-aa13-4d6c-8992-c2c1cb3289bb">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>socketTimeout</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="e285389f-f7c7-42f8-9994-0d1cf83742dc">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>useCookies</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="4ab835e9-0efd-4c70-becb-9418c9b16b97">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>proxy</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="c9e56d31-0341-4c02-b02a-b1c391b080b1">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>proxyPort</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="36b2a283-1b47-462a-9175-5499d4a05000">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>proxyUsername</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="2ff3f4d5-61dc-4d8e-b467-348025aefdcd">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>ENCRYPTED</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>proxyPassword</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="2f8cac75-5024-4715-8b01-8fd525459dbe">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>encodeURL</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>false</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="c5482c11-1063-44db-8cf6-f464858b7d11">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>trustAllRoots</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="093f0c48-ebbb-4626-86de-9251cd796ee6">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>keystore</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="52ec8687-8094-4fd3-a02b-e7110fb9a56f">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>ENCRYPTED</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>keystorePassword</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="5d9c472f-06d1-4641-a563-5015b3e3b648">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>trustKeystore</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="b5f73410-beee-412e-8a14-afb95e377ea3">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>ENCRYPTED</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>trustPassword</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="ae78612c-3808-4ac3-91a0-85b6229c4947">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>headerNamesList</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="b068cc2a-b5bc-4741-abe1-29f815f42957">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>headerValuesList</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="18d37566-45a4-4b6d-8e13-32789ebbf16a">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>queryNamesList</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="e51ae2b9-1ce7-429d-ad96-8b728fc8f078">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>queryValuesList</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="fafe53af-4f1f-4728-b037-86fc56db02f1">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>delimiter</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>
+</value>
+          <record>false</record>
+        </staticBinding>
+        <identityBinding id="4275d1ec-2fb4-44ca-a5a5-6e9bd2b05ade">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>identityServiceUsername</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <link>
+            <refId>4d45058e-50b9-432f-8d63-8f39a064e251</refId>
+          </link>
+          <identityAttribute>USERNAME</identityAttribute>
+        </identityBinding>
+        <identityBinding id="ec640d11-9bd0-4f04-bf67-fc4a35a24bf9">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>ENCRYPTED</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>identityServicePassword</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <link>
+            <refId>4d45058e-50b9-432f-8d63-8f39a064e251</refId>
+          </link>
+          <identityAttribute>PASSWORD</identityAttribute>
+        </identityBinding>
+      </bindings>
+      <transitions>
+        <transition id="6570b3f7-b337-4c16-82e3-a39ff63d180d">
+          <annotation></annotation>
+          <name>REDIRECTION</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>REDIRECTION</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>8673eed9-128b-4372-a389-bcfa0fe31182</refId>
+          </destination>
+          <source>
+            <refId>9bd9bb1a-35c0-49eb-82b4-af79de61ca81</refId>
+          </source>
+          <positions>
+            <point>
+              <x>614.0</x>
+              <y>178.0</y>
+            </point>
+            <point>
+              <x>785.0</x>
+              <y>357.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>1050.6931197817705</x>
+            <y>-63.07679664597029</y>
+          </labelPosition>
+        </transition>
+        <transition id="29881faf-cc2d-4b73-aa78-a52d5c917375">
+          <annotation></annotation>
+          <name>success</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>0ecaebbf-95f6-4543-a1eb-032d635e2308</refId>
+          </destination>
+          <source>
+            <refId>9bd9bb1a-35c0-49eb-82b4-af79de61ca81</refId>
+          </source>
+          <positions>
+            <point>
+              <x>614.0</x>
+              <y>178.0</y>
+            </point>
+            <point>
+              <x>794.0</x>
+              <y>178.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>333.0</x>
+            <y>0.0</y>
+          </labelPosition>
+        </transition>
+        <transition id="03f3fe97-b58a-41ac-a6f9-69130f8f462f">
+          <annotation></annotation>
+          <name>PAGE_NOT_FOUND</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>PAGE_NOT_FOUND</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>0e41bb10-eef3-4805-bce4-e2073141d580</refId>
+          </destination>
+          <source>
+            <refId>9bd9bb1a-35c0-49eb-82b4-af79de61ca81</refId>
+          </source>
+          <positions>
+            <point>
+              <x>697.0</x>
+              <y>210.0</y>
+            </point>
+            <point>
+              <x>321.0</x>
+              <y>135.0</y>
+            </point>
+            <point>
+              <x>351.0</x>
+              <y>165.0</y>
+            </point>
+            <point>
+              <x>794.0</x>
+              <y>374.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>802.732299355948</x>
+            <y>-30.38054453282724</y>
+          </labelPosition>
+        </transition>
+        <transition id="8ecfb6b3-909f-4e48-a2f9-92d6a9a1b4e2">
+          <annotation></annotation>
+          <name>failure</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>0e41bb10-eef3-4805-bce4-e2073141d580</refId>
+          </destination>
+          <source>
+            <refId>9bd9bb1a-35c0-49eb-82b4-af79de61ca81</refId>
+          </source>
+          <positions>
+            <point>
+              <x>614.0</x>
+              <y>178.0</y>
+            </point>
+            <point>
+              <x>794.0</x>
+              <y>328.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>586.5820378464977</x>
+            <y>-26.93922321855336</y>
+          </labelPosition>
+        </transition>
+        <transition id="a2c06fba-33d7-4a1c-8fec-90f858b30553">
+          <annotation></annotation>
+          <name>INFORMATIONAL</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>INFORMATIONAL</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>8673eed9-128b-4372-a389-bcfa0fe31182</refId>
+          </destination>
+          <source>
+            <refId>9bd9bb1a-35c0-49eb-82b4-af79de61ca81</refId>
+          </source>
+          <positions>
+            <point>
+              <x>564.7985074626865</x>
+              <y>210.0</y>
+            </point>
+            <point>
+              <x>233.0</x>
+              <y>167.0</y>
+            </point>
+            <point>
+              <x>231.0</x>
+              <y>192.0</y>
+            </point>
+            <point>
+              <x>614.0</x>
+              <y>380.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>887.4670132716429</x>
+            <y>-57.642228006523666</y>
+          </labelPosition>
+        </transition>
+      </transitions>
+      <properties/>
+      <opRef>
+        <refId>0a7e26dc-bdbd-4b5b-b45a-27067dda369f</refId>
+      </opRef>
+      <assignments>
+        <flowVariableAssignment id="693cdd1b-a5c2-411d-8fd7-0986b5114dac">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>imageEndpoint</contextKey>
+          <expression id="7480f171-46e9-4b24-9fc1-c3704af74f33">
+            <annotation></annotation>
+            <name>Result Field: document</name>
+            <fieldName>document</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters>
+              <scriptletFilter id="8413ef97-d6a3-46a3-92a8-f4e2b6f38f6d">
+                <annotation></annotation>
+                <name>Scriptlet</name>
+                <scriptlet id="49e86601-ab84-4d8d-b291-7ca72f70559a">
+                  <annotation></annotation>
+                  <name>default</name>
+                  <script>// One-liner to define JSON parser and stringifier.  Minified version of http://www.json.org/json2.js
+if(!this.JSON){this.JSON={};}(function(){function f(n){return n&lt;10?&apos;0&apos;+n:n;} if(typeof Date.prototype.toJSON!==&apos;function&apos;){Date.prototype.toJSON=function(key){return isFinite(this.valueOf())?this.getUTCFullYear()+&apos;-&apos;+ f(this.getUTCMonth()+1)+&apos;-&apos;+f(this.getUTCDate())+&apos;T&apos;+f(this.getUTCHours())+&apos;:&apos;+f(this.getUTCMinutes())+&apos;:&apos;+f(this.getUTCSeconds())+&apos;Z&apos;:null;};String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function(key){return this.valueOf();};} var cx=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,escapable=/[\\\&quot;\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,gap,indent,meta={&apos;\b&apos;:&apos;\\b&apos;,&apos;\t&apos;:&apos;\\t&apos;,&apos;\n&apos;:&apos;\\n&apos;,&apos;\f&apos;:&apos;\\f&apos;,&apos;\r&apos;:&apos;\\r&apos;,&apos;&quot;&apos;:&apos;\\&quot;&apos;,&apos;\\&apos;:&apos;\\\\&apos;},rep;function quote(string){escapable.lastIndex=0;return escapable.test(string)?&apos;&quot;&apos;+string.replace(escapable,function(a){var c=meta[a];return typeof c===&apos;string&apos;?c:&apos;\\u&apos;+(&apos;0000&apos;+a.charCodeAt(0).toString(16)).slice(-4);})+&apos;&quot;&apos;:&apos;&quot;&apos;+string+&apos;&quot;&apos;;} function str(key,holder){var i,k,v,length,mind=gap,partial,value=holder[key];if(value&amp;&amp;typeof value===&apos;object&apos;&amp;&amp;typeof value.toJSON===&apos;function&apos;){value=value.toJSON(key);}if(typeof rep===&apos;function&apos;){value=rep.call(holder,key,value);} switch(typeof value){case&apos;string&apos;:return quote(value);case&apos;number&apos;:return isFinite(value)?String(value):&apos;null&apos;;case&apos;boolean&apos;:case&apos;null&apos;:return String(value);case&apos;object&apos;:if(!value){return&apos;null&apos;;}gap+=indent;partial=[];if(Object.prototype.toString.apply(value)===&apos;[object Array]&apos;){length=value.length;for(i=0;i&lt;length;i+=1){partial[i]=str(i,value)||&apos;null&apos;;} v=partial.length===0?&apos;[]&apos;:gap?&apos;[\n&apos;+gap+partial.join(&apos;,\n&apos;+gap)+&apos;\n&apos;+mind+&apos;]&apos;:&apos;[&apos;+partial.join(&apos;,&apos;)+&apos;]&apos;;gap=mind;return v;}if(rep&amp;&amp;typeof rep===&apos;object&apos;){length=rep.length;for(i=0;i&lt;length;i+=1){k=rep[i];if(typeof k===&apos;string&apos;){v=str(k,value);if(v){partial.push(quote(k)+(gap?&apos;: &apos;:&apos;:&apos;)+v);}}}}else{for(k in value){if(Object.hasOwnProperty.call(value,k)){v=str(k,value);if(v){partial.push(quote(k)+(gap?&apos;: &apos;:&apos;:&apos;)+v);}}}} v=partial.length===0?&apos;{}&apos;:gap?&apos;{\n&apos;+gap+partial.join(&apos;,\n&apos;+gap)+&apos;\n&apos;+ mind+&apos;}&apos;:&apos;{&apos;+partial.join(&apos;,&apos;)+&apos;}&apos;;gap=mind;return v;}} if(typeof JSON.stringify!==&apos;function&apos;){JSON.stringify=function(value,replacer,space){var i;gap=&apos;&apos;;indent=&apos;&apos;;if(typeof space===&apos;number&apos;){for(i=0;i&lt;space;i+=1){indent+=&apos; &apos;;}}else if(typeof space===&apos;string&apos;){indent=space;} rep=replacer;if(replacer&amp;&amp;typeof replacer!==&apos;function&apos;&amp;&amp;(typeof replacer!==&apos;object&apos;||typeof replacer.length!==&apos;number&apos;)){throw new Error(&apos;JSON.stringify&apos;);} return str(&apos;&apos;,{&apos;&apos;:value});};} if(typeof JSON.parse!==&apos;function&apos;){JSON.parse=function(text,reviver){var j;function walk(holder,key){var k,v,value=holder[key];if(value&amp;&amp;typeof value===&apos;object&apos;){for(k in value){if(Object.hasOwnProperty.call(value,k)){v=walk(value,k);if(v!==undefined){value[k]=v;}else{delete value[k];}}}} return reviver.call(holder,key,value);} text=String(text);cx.lastIndex=0;if(cx.test(text)){text=text.replace(cx,function(a){return&apos;\\u&apos;+ (&apos;0000&apos;+a.charCodeAt(0).toString(16)).slice(-4);});} if(/^[\],:{}\s]*$/.test(text.replace(/\\(?:[&quot;\\\/bfnrt]|u[0-9a-fA-F]{4})/g,&apos;@&apos;).replace(/&quot;[^&quot;\\\n\r]*&quot;|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,&apos;]&apos;).replace(/(?:^|:|,)(?:\s*\[)+/g,&apos;&apos;))){j=eval(&apos;(&apos;+text+&apos;)&apos;);return typeof reviver===&apos;function&apos;?walk({&apos;&apos;:j},&apos;&apos;):j;} throw new SyntaxError(&apos;JSON.parse&apos;);};}}());
+
+// image uses the same region as compute    
+var computeRegion =  scriptletContext.getLocal(&quot;computeRegion&quot;);
+
+// default response
+scriptletResponse = &quot;failure&quot;;
+scriptletResult = &quot;Endpoint not found for region: &apos;&quot; + computeRegion + &quot;&apos;!&quot;;
+
+
+try {
+    // check to make sure scriptletInput is defined (if there was a failure, it might not be)
+    if (typeof scriptletInput === &quot;undefined&quot;){ 
+        // if scriptletInput is undefined, thow an empty exception, so the final scriptletResult will be empty
+        throw &quot;&quot;;
+    }
+
+
+    jsObject = JSON.parse(scriptletInput);
+    
+    var serviceCatalog = jsObject.access.serviceCatalog; 
+
+    for (service in serviceCatalog){
+        if (serviceCatalog[service].type == &quot;image&quot;){
+            // we can have multiple endpoints, one for each region. 
+            // see if the user specified a reqion. if not, just return the 1st in the array
+            if ( (computeRegion == undefined) || (computeRegion == &apos;&apos;) ){
+                scriptletResult = serviceCatalog[service].endpoints[0].publicURL;
+                scriptletResponse = &quot;success&quot;;
+                break;
+            }
+            
+            // otherwise, iterate through the list, and find the region we&apos;re looking for.
+            for (endpoint in serviceCatalog[service].endpoints){
+                if (serviceCatalog[service].endpoints[endpoint].region == computeRegion){
+                    scriptletResult = serviceCatalog[service].endpoints[endpoint].publicURL;
+                    scriptletResponse = &quot;success&quot;;
+                    break;
+                }
+            }
+            break;
+        }
+    }
+} 
+catch (e){ 
+    scriptletResult = &quot;&quot;+e;
+}
+</script>
+                  <type>RHINO</type>
+                </scriptlet>
+              </scriptletFilter>
+            </filters>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="2ae10268-33b9-4a4b-81fc-626579ba4642">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>exception</contextKey>
+          <expression id="94ac019f-1649-4ef3-b369-3d896595114a">
+            <annotation></annotation>
+            <name>Result Field: exception</name>
+            <fieldName>exception</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters/>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="21aa9435-c805-4dda-9f68-8f0ffe758535">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>objectStorageEndpoint</contextKey>
+          <expression id="375ae007-a7c0-460a-8882-9938c6ee3327">
+            <annotation></annotation>
+            <name>Result Field: document</name>
+            <fieldName>document</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters>
+              <scriptletFilter id="2be89847-f90e-4cf7-b57c-b0a782fd5454">
+                <annotation></annotation>
+                <name>Scriptlet</name>
+                <scriptlet id="89328d08-ff4d-4bbf-aecb-acc5dbd17390">
+                  <annotation></annotation>
+                  <name>default</name>
+                  <script>// One-liner to define JSON parser and stringifier.  Minified version of http://www.json.org/json2.js
+if(!this.JSON){this.JSON={};}(function(){function f(n){return n&lt;10?&apos;0&apos;+n:n;} if(typeof Date.prototype.toJSON!==&apos;function&apos;){Date.prototype.toJSON=function(key){return isFinite(this.valueOf())?this.getUTCFullYear()+&apos;-&apos;+ f(this.getUTCMonth()+1)+&apos;-&apos;+f(this.getUTCDate())+&apos;T&apos;+f(this.getUTCHours())+&apos;:&apos;+f(this.getUTCMinutes())+&apos;:&apos;+f(this.getUTCSeconds())+&apos;Z&apos;:null;};String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function(key){return this.valueOf();};} var cx=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,escapable=/[\\\&quot;\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,gap,indent,meta={&apos;\b&apos;:&apos;\\b&apos;,&apos;\t&apos;:&apos;\\t&apos;,&apos;\n&apos;:&apos;\\n&apos;,&apos;\f&apos;:&apos;\\f&apos;,&apos;\r&apos;:&apos;\\r&apos;,&apos;&quot;&apos;:&apos;\\&quot;&apos;,&apos;\\&apos;:&apos;\\\\&apos;},rep;function quote(string){escapable.lastIndex=0;return escapable.test(string)?&apos;&quot;&apos;+string.replace(escapable,function(a){var c=meta[a];return typeof c===&apos;string&apos;?c:&apos;\\u&apos;+(&apos;0000&apos;+a.charCodeAt(0).toString(16)).slice(-4);})+&apos;&quot;&apos;:&apos;&quot;&apos;+string+&apos;&quot;&apos;;} function str(key,holder){var i,k,v,length,mind=gap,partial,value=holder[key];if(value&amp;&amp;typeof value===&apos;object&apos;&amp;&amp;typeof value.toJSON===&apos;function&apos;){value=value.toJSON(key);}if(typeof rep===&apos;function&apos;){value=rep.call(holder,key,value);} switch(typeof value){case&apos;string&apos;:return quote(value);case&apos;number&apos;:return isFinite(value)?String(value):&apos;null&apos;;case&apos;boolean&apos;:case&apos;null&apos;:return String(value);case&apos;object&apos;:if(!value){return&apos;null&apos;;}gap+=indent;partial=[];if(Object.prototype.toString.apply(value)===&apos;[object Array]&apos;){length=value.length;for(i=0;i&lt;length;i+=1){partial[i]=str(i,value)||&apos;null&apos;;} v=partial.length===0?&apos;[]&apos;:gap?&apos;[\n&apos;+gap+partial.join(&apos;,\n&apos;+gap)+&apos;\n&apos;+mind+&apos;]&apos;:&apos;[&apos;+partial.join(&apos;,&apos;)+&apos;]&apos;;gap=mind;return v;}if(rep&amp;&amp;typeof rep===&apos;object&apos;){length=rep.length;for(i=0;i&lt;length;i+=1){k=rep[i];if(typeof k===&apos;string&apos;){v=str(k,value);if(v){partial.push(quote(k)+(gap?&apos;: &apos;:&apos;:&apos;)+v);}}}}else{for(k in value){if(Object.hasOwnProperty.call(value,k)){v=str(k,value);if(v){partial.push(quote(k)+(gap?&apos;: &apos;:&apos;:&apos;)+v);}}}} v=partial.length===0?&apos;{}&apos;:gap?&apos;{\n&apos;+gap+partial.join(&apos;,\n&apos;+gap)+&apos;\n&apos;+ mind+&apos;}&apos;:&apos;{&apos;+partial.join(&apos;,&apos;)+&apos;}&apos;;gap=mind;return v;}} if(typeof JSON.stringify!==&apos;function&apos;){JSON.stringify=function(value,replacer,space){var i;gap=&apos;&apos;;indent=&apos;&apos;;if(typeof space===&apos;number&apos;){for(i=0;i&lt;space;i+=1){indent+=&apos; &apos;;}}else if(typeof space===&apos;string&apos;){indent=space;} rep=replacer;if(replacer&amp;&amp;typeof replacer!==&apos;function&apos;&amp;&amp;(typeof replacer!==&apos;object&apos;||typeof replacer.length!==&apos;number&apos;)){throw new Error(&apos;JSON.stringify&apos;);} return str(&apos;&apos;,{&apos;&apos;:value});};} if(typeof JSON.parse!==&apos;function&apos;){JSON.parse=function(text,reviver){var j;function walk(holder,key){var k,v,value=holder[key];if(value&amp;&amp;typeof value===&apos;object&apos;){for(k in value){if(Object.hasOwnProperty.call(value,k)){v=walk(value,k);if(v!==undefined){value[k]=v;}else{delete value[k];}}}} return reviver.call(holder,key,value);} text=String(text);cx.lastIndex=0;if(cx.test(text)){text=text.replace(cx,function(a){return&apos;\\u&apos;+ (&apos;0000&apos;+a.charCodeAt(0).toString(16)).slice(-4);});} if(/^[\],:{}\s]*$/.test(text.replace(/\\(?:[&quot;\\\/bfnrt]|u[0-9a-fA-F]{4})/g,&apos;@&apos;).replace(/&quot;[^&quot;\\\n\r]*&quot;|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,&apos;]&apos;).replace(/(?:^|:|,)(?:\s*\[)+/g,&apos;&apos;))){j=eval(&apos;(&apos;+text+&apos;)&apos;);return typeof reviver===&apos;function&apos;?walk({&apos;&apos;:j},&apos;&apos;):j;} throw new SyntaxError(&apos;JSON.parse&apos;);};}}());
+
+// block-store uses the same region as compute    
+var objectStorageRegion =  scriptletContext.getLocal(&quot;objectStorageRegion&quot;);
+
+// default response
+scriptletResponse = &quot;failure&quot;;
+scriptletResult = &quot;Endpoint not found for region: &apos;&quot; + objectStorageRegion + &quot;&apos;!&quot;;
+
+
+try {
+    // check to make sure scriptletInput is defined (if there was a failure, it might not be)
+    if (typeof scriptletInput === &quot;undefined&quot;){ 
+        // if scriptletInput is undefined, thow an empty exception, so the final scriptletResult will be empty
+        throw &quot;&quot;;
+    }
+
+    jsObject = JSON.parse(scriptletInput);
+    
+    var serviceCatalog = jsObject.access.serviceCatalog; 
+
+    for (service in serviceCatalog){
+        if (serviceCatalog[service].type == &quot;object-store&quot;){
+            // we can have multiple endpoints, one for each region. 
+            // see if the user specified a reqion. if not, just return the 1st in the array
+            if ( (objectStorageRegion == undefined) || (objectStorageRegion == &apos;&apos;) ){
+                scriptletResult = serviceCatalog[service].endpoints[0].publicURL;
+                scriptletResponse = &quot;success&quot;;
+                break;
+            }
+            
+            // otherwise, iterate through the list, and find the region we&apos;re looking for.
+            for (endpoint in serviceCatalog[service].endpoints){
+                if (serviceCatalog[service].endpoints[endpoint].region == objectStorageRegion){
+                    scriptletResult = serviceCatalog[service].endpoints[endpoint].publicURL;
+                    scriptletResponse = &quot;success&quot;;
+                    break;
+                }
+            }
+            break;
+        }
+    }
+} 
+catch (e){ 
+    scriptletResult = &quot;&quot;+e;
+}
+</script>
+                  <type>RHINO</type>
+                </scriptlet>
+              </scriptletFilter>
+            </filters>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="658e04b9-4a76-49f3-9159-09e8e9901ecf">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_VARIABLE</assignmentTargetType>
+          <contextKey>document</contextKey>
+          <expression id="ae848849-f6bd-4876-9f03-4f4537a410d6">
+            <annotation></annotation>
+            <name>Result Field: document</name>
+            <fieldName>document</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters/>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="6c98e8a7-20c6-4f2b-a10e-1ee3338066bf">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>accessJSONObject</contextKey>
+          <expression id="e841fc98-987f-45fc-9a87-ccf98bdb6614">
+            <annotation></annotation>
+            <name>Result Field: document</name>
+            <fieldName>document</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters/>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="25612145-217c-4986-93e1-aad4cd9ce770">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_VARIABLE</assignmentTargetType>
+          <contextKey>errorMessage</contextKey>
+          <expression id="6c987ad8-91e6-40af-bb08-e57b73493a78">
+            <annotation></annotation>
+            <name>Result Field: errorMessage</name>
+            <fieldName>errorMessage</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters/>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="2113ee77-99b5-4c06-b291-77808f12a947">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>cdnEndpoint</contextKey>
+          <expression id="62bb982b-023d-49ca-bdbe-69ddcf85b7d4">
+            <annotation></annotation>
+            <name>Result Field: document</name>
+            <fieldName>document</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters>
+              <scriptletFilter id="a6c8cb5a-08f3-4510-a6a8-6e75f9868374">
+                <annotation></annotation>
+                <name>Scriptlet</name>
+                <scriptlet id="81274c64-8022-4a0b-895f-799fe7ffdf50">
+                  <annotation></annotation>
+                  <name>default</name>
+                  <script>// One-liner to define JSON parser and stringifier.  Minified version of http://www.json.org/json2.js
+if(!this.JSON){this.JSON={};}(function(){function f(n){return n&lt;10?&apos;0&apos;+n:n;} if(typeof Date.prototype.toJSON!==&apos;function&apos;){Date.prototype.toJSON=function(key){return isFinite(this.valueOf())?this.getUTCFullYear()+&apos;-&apos;+ f(this.getUTCMonth()+1)+&apos;-&apos;+f(this.getUTCDate())+&apos;T&apos;+f(this.getUTCHours())+&apos;:&apos;+f(this.getUTCMinutes())+&apos;:&apos;+f(this.getUTCSeconds())+&apos;Z&apos;:null;};String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function(key){return this.valueOf();};} var cx=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,escapable=/[\\\&quot;\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,gap,indent,meta={&apos;\b&apos;:&apos;\\b&apos;,&apos;\t&apos;:&apos;\\t&apos;,&apos;\n&apos;:&apos;\\n&apos;,&apos;\f&apos;:&apos;\\f&apos;,&apos;\r&apos;:&apos;\\r&apos;,&apos;&quot;&apos;:&apos;\\&quot;&apos;,&apos;\\&apos;:&apos;\\\\&apos;},rep;function quote(string){escapable.lastIndex=0;return escapable.test(string)?&apos;&quot;&apos;+string.replace(escapable,function(a){var c=meta[a];return typeof c===&apos;string&apos;?c:&apos;\\u&apos;+(&apos;0000&apos;+a.charCodeAt(0).toString(16)).slice(-4);})+&apos;&quot;&apos;:&apos;&quot;&apos;+string+&apos;&quot;&apos;;} function str(key,holder){var i,k,v,length,mind=gap,partial,value=holder[key];if(value&amp;&amp;typeof value===&apos;object&apos;&amp;&amp;typeof value.toJSON===&apos;function&apos;){value=value.toJSON(key);}if(typeof rep===&apos;function&apos;){value=rep.call(holder,key,value);} switch(typeof value){case&apos;string&apos;:return quote(value);case&apos;number&apos;:return isFinite(value)?String(value):&apos;null&apos;;case&apos;boolean&apos;:case&apos;null&apos;:return String(value);case&apos;object&apos;:if(!value){return&apos;null&apos;;}gap+=indent;partial=[];if(Object.prototype.toString.apply(value)===&apos;[object Array]&apos;){length=value.length;for(i=0;i&lt;length;i+=1){partial[i]=str(i,value)||&apos;null&apos;;} v=partial.length===0?&apos;[]&apos;:gap?&apos;[\n&apos;+gap+partial.join(&apos;,\n&apos;+gap)+&apos;\n&apos;+mind+&apos;]&apos;:&apos;[&apos;+partial.join(&apos;,&apos;)+&apos;]&apos;;gap=mind;return v;}if(rep&amp;&amp;typeof rep===&apos;object&apos;){length=rep.length;for(i=0;i&lt;length;i+=1){k=rep[i];if(typeof k===&apos;string&apos;){v=str(k,value);if(v){partial.push(quote(k)+(gap?&apos;: &apos;:&apos;:&apos;)+v);}}}}else{for(k in value){if(Object.hasOwnProperty.call(value,k)){v=str(k,value);if(v){partial.push(quote(k)+(gap?&apos;: &apos;:&apos;:&apos;)+v);}}}} v=partial.length===0?&apos;{}&apos;:gap?&apos;{\n&apos;+gap+partial.join(&apos;,\n&apos;+gap)+&apos;\n&apos;+ mind+&apos;}&apos;:&apos;{&apos;+partial.join(&apos;,&apos;)+&apos;}&apos;;gap=mind;return v;}} if(typeof JSON.stringify!==&apos;function&apos;){JSON.stringify=function(value,replacer,space){var i;gap=&apos;&apos;;indent=&apos;&apos;;if(typeof space===&apos;number&apos;){for(i=0;i&lt;space;i+=1){indent+=&apos; &apos;;}}else if(typeof space===&apos;string&apos;){indent=space;} rep=replacer;if(replacer&amp;&amp;typeof replacer!==&apos;function&apos;&amp;&amp;(typeof replacer!==&apos;object&apos;||typeof replacer.length!==&apos;number&apos;)){throw new Error(&apos;JSON.stringify&apos;);} return str(&apos;&apos;,{&apos;&apos;:value});};} if(typeof JSON.parse!==&apos;function&apos;){JSON.parse=function(text,reviver){var j;function walk(holder,key){var k,v,value=holder[key];if(value&amp;&amp;typeof value===&apos;object&apos;){for(k in value){if(Object.hasOwnProperty.call(value,k)){v=walk(value,k);if(v!==undefined){value[k]=v;}else{delete value[k];}}}} return reviver.call(holder,key,value);} text=String(text);cx.lastIndex=0;if(cx.test(text)){text=text.replace(cx,function(a){return&apos;\\u&apos;+ (&apos;0000&apos;+a.charCodeAt(0).toString(16)).slice(-4);});} if(/^[\],:{}\s]*$/.test(text.replace(/\\(?:[&quot;\\\/bfnrt]|u[0-9a-fA-F]{4})/g,&apos;@&apos;).replace(/&quot;[^&quot;\\\n\r]*&quot;|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,&apos;]&apos;).replace(/(?:^|:|,)(?:\s*\[)+/g,&apos;&apos;))){j=eval(&apos;(&apos;+text+&apos;)&apos;);return typeof reviver===&apos;function&apos;?walk({&apos;&apos;:j},&apos;&apos;):j;} throw new SyntaxError(&apos;JSON.parse&apos;);};}}());
+
+// block-store uses the same region as compute    
+var objectStorageRegion =  scriptletContext.getLocal(&quot;objectStorageRegion&quot;);
+
+// default response
+scriptletResponse = &quot;failure&quot;;
+scriptletResult = &quot;Endpoint not found for region: &apos;&quot; + objectStorageRegion + &quot;&apos;!&quot;;
+
+
+try {
+    // check to make sure scriptletInput is defined (if there was a failure, it might not be)
+    if (typeof scriptletInput === &quot;undefined&quot;){ 
+        // if scriptletInput is undefined, thow an empty exception, so the final scriptletResult will be empty
+        throw &quot;&quot;;
+    }
+
+    jsObject = JSON.parse(scriptletInput);
+    
+    var serviceCatalog = jsObject.access.serviceCatalog; 
+
+    for (service in serviceCatalog){
+        if (serviceCatalog[service].type == &quot;hpext:cdn&quot;){
+            // we can have multiple endpoints, one for each region. 
+            // see if the user specified a reqion. if not, just return the 1st in the array
+            if ( (objectStorageRegion == undefined) || (objectStorageRegion == &apos;&apos;) ){
+                scriptletResult = serviceCatalog[service].endpoints[0].publicURL;
+                scriptletResponse = &quot;success&quot;;
+                break;
+            }
+            
+            // otherwise, iterate through the list, and find the region we&apos;re looking for.
+            for (endpoint in serviceCatalog[service].endpoints){
+                if (serviceCatalog[service].endpoints[endpoint].region == objectStorageRegion){
+                    scriptletResult = serviceCatalog[service].endpoints[endpoint].publicURL;
+                    scriptletResponse = &quot;success&quot;;
+                    break;
+                }
+            }
+            break;
+        }
+    }
+} 
+catch (e){ 
+    scriptletResult = &quot;&quot;+e;
+}
+</script>
+                  <type>RHINO</type>
+                </scriptlet>
+              </scriptletFilter>
+            </filters>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="eb46a3ac-b5ef-45c6-aedd-7d56149bb32a">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>blockStorageEndpoint</contextKey>
+          <expression id="736c1883-598a-4b38-85a5-53a6a64a2137">
+            <annotation></annotation>
+            <name>Result Field: document</name>
+            <fieldName>document</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters>
+              <scriptletFilter id="b894b066-6bff-44c9-9be8-b746b3192ed9">
+                <annotation></annotation>
+                <name>Scriptlet</name>
+                <scriptlet id="a6b1d8ab-f6bb-4b99-a22e-4f09bf030091">
+                  <annotation></annotation>
+                  <name>default</name>
+                  <script>// One-liner to define JSON parser and stringifier.  Minified version of http://www.json.org/json2.js
+if(!this.JSON){this.JSON={};}(function(){function f(n){return n&lt;10?&apos;0&apos;+n:n;} if(typeof Date.prototype.toJSON!==&apos;function&apos;){Date.prototype.toJSON=function(key){return isFinite(this.valueOf())?this.getUTCFullYear()+&apos;-&apos;+ f(this.getUTCMonth()+1)+&apos;-&apos;+f(this.getUTCDate())+&apos;T&apos;+f(this.getUTCHours())+&apos;:&apos;+f(this.getUTCMinutes())+&apos;:&apos;+f(this.getUTCSeconds())+&apos;Z&apos;:null;};String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function(key){return this.valueOf();};} var cx=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,escapable=/[\\\&quot;\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,gap,indent,meta={&apos;\b&apos;:&apos;\\b&apos;,&apos;\t&apos;:&apos;\\t&apos;,&apos;\n&apos;:&apos;\\n&apos;,&apos;\f&apos;:&apos;\\f&apos;,&apos;\r&apos;:&apos;\\r&apos;,&apos;&quot;&apos;:&apos;\\&quot;&apos;,&apos;\\&apos;:&apos;\\\\&apos;},rep;function quote(string){escapable.lastIndex=0;return escapable.test(string)?&apos;&quot;&apos;+string.replace(escapable,function(a){var c=meta[a];return typeof c===&apos;string&apos;?c:&apos;\\u&apos;+(&apos;0000&apos;+a.charCodeAt(0).toString(16)).slice(-4);})+&apos;&quot;&apos;:&apos;&quot;&apos;+string+&apos;&quot;&apos;;} function str(key,holder){var i,k,v,length,mind=gap,partial,value=holder[key];if(value&amp;&amp;typeof value===&apos;object&apos;&amp;&amp;typeof value.toJSON===&apos;function&apos;){value=value.toJSON(key);}if(typeof rep===&apos;function&apos;){value=rep.call(holder,key,value);} switch(typeof value){case&apos;string&apos;:return quote(value);case&apos;number&apos;:return isFinite(value)?String(value):&apos;null&apos;;case&apos;boolean&apos;:case&apos;null&apos;:return String(value);case&apos;object&apos;:if(!value){return&apos;null&apos;;}gap+=indent;partial=[];if(Object.prototype.toString.apply(value)===&apos;[object Array]&apos;){length=value.length;for(i=0;i&lt;length;i+=1){partial[i]=str(i,value)||&apos;null&apos;;} v=partial.length===0?&apos;[]&apos;:gap?&apos;[\n&apos;+gap+partial.join(&apos;,\n&apos;+gap)+&apos;\n&apos;+mind+&apos;]&apos;:&apos;[&apos;+partial.join(&apos;,&apos;)+&apos;]&apos;;gap=mind;return v;}if(rep&amp;&amp;typeof rep===&apos;object&apos;){length=rep.length;for(i=0;i&lt;length;i+=1){k=rep[i];if(typeof k===&apos;string&apos;){v=str(k,value);if(v){partial.push(quote(k)+(gap?&apos;: &apos;:&apos;:&apos;)+v);}}}}else{for(k in value){if(Object.hasOwnProperty.call(value,k)){v=str(k,value);if(v){partial.push(quote(k)+(gap?&apos;: &apos;:&apos;:&apos;)+v);}}}} v=partial.length===0?&apos;{}&apos;:gap?&apos;{\n&apos;+gap+partial.join(&apos;,\n&apos;+gap)+&apos;\n&apos;+ mind+&apos;}&apos;:&apos;{&apos;+partial.join(&apos;,&apos;)+&apos;}&apos;;gap=mind;return v;}} if(typeof JSON.stringify!==&apos;function&apos;){JSON.stringify=function(value,replacer,space){var i;gap=&apos;&apos;;indent=&apos;&apos;;if(typeof space===&apos;number&apos;){for(i=0;i&lt;space;i+=1){indent+=&apos; &apos;;}}else if(typeof space===&apos;string&apos;){indent=space;} rep=replacer;if(replacer&amp;&amp;typeof replacer!==&apos;function&apos;&amp;&amp;(typeof replacer!==&apos;object&apos;||typeof replacer.length!==&apos;number&apos;)){throw new Error(&apos;JSON.stringify&apos;);} return str(&apos;&apos;,{&apos;&apos;:value});};} if(typeof JSON.parse!==&apos;function&apos;){JSON.parse=function(text,reviver){var j;function walk(holder,key){var k,v,value=holder[key];if(value&amp;&amp;typeof value===&apos;object&apos;){for(k in value){if(Object.hasOwnProperty.call(value,k)){v=walk(value,k);if(v!==undefined){value[k]=v;}else{delete value[k];}}}} return reviver.call(holder,key,value);} text=String(text);cx.lastIndex=0;if(cx.test(text)){text=text.replace(cx,function(a){return&apos;\\u&apos;+ (&apos;0000&apos;+a.charCodeAt(0).toString(16)).slice(-4);});} if(/^[\],:{}\s]*$/.test(text.replace(/\\(?:[&quot;\\\/bfnrt]|u[0-9a-fA-F]{4})/g,&apos;@&apos;).replace(/&quot;[^&quot;\\\n\r]*&quot;|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,&apos;]&apos;).replace(/(?:^|:|,)(?:\s*\[)+/g,&apos;&apos;))){j=eval(&apos;(&apos;+text+&apos;)&apos;);return typeof reviver===&apos;function&apos;?walk({&apos;&apos;:j},&apos;&apos;):j;} throw new SyntaxError(&apos;JSON.parse&apos;);};}}());
+
+// block-store uses the same region as compute    
+var computeRegion =  scriptletContext.getLocal(&quot;computeRegion&quot;);
+
+// default response
+scriptletResponse = &quot;failure&quot;;
+scriptletResult = &quot;Endpoint not found for region: &apos;&quot; + computeRegion + &quot;&apos;!&quot;;
+
+
+try {
+    // check to make sure scriptletInput is defined (if there was a failure, it might not be)
+    if (typeof scriptletInput === &quot;undefined&quot;){ 
+        // if scriptletInput is undefined, thow an empty exception, so the final scriptletResult will be empty
+        throw &quot;&quot;;
+    }
+
+    jsObject = JSON.parse(scriptletInput);
+    
+    var serviceCatalog = jsObject.access.serviceCatalog; 
+
+    for (service in serviceCatalog){
+        if (serviceCatalog[service].type == &quot;hpext:blockstore&quot;){
+            // we can have multiple endpoints, one for each region. 
+            // see if the user specified a reqion. if not, just return the 1st in the array
+            if ( (computeRegion == undefined) || (computeRegion == &apos;&apos;) ){
+                scriptletResult = serviceCatalog[service].endpoints[0].publicURL;
+                scriptletResponse = &quot;success&quot;;
+                break;
+            }
+            
+            // otherwise, iterate through the list, and find the region we&apos;re looking for.
+            for (endpoint in serviceCatalog[service].endpoints){
+                if (serviceCatalog[service].endpoints[endpoint].region == computeRegion){
+                    scriptletResult = serviceCatalog[service].endpoints[endpoint].publicURL;
+                    scriptletResponse = &quot;success&quot;;
+                    break;
+                }
+            }
+            break;
+        }
+    }
+} 
+catch (e){ 
+    scriptletResult = &quot;&quot;+e;
+}
+</script>
+                  <type>RHINO</type>
+                </scriptlet>
+              </scriptletFilter>
+            </filters>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="f5fc5954-5dc0-4d0f-88e8-2cbf9b1ca17f">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>computeEndpoint</contextKey>
+          <expression id="293ac439-db92-401b-8ab1-490031158b9f">
+            <annotation></annotation>
+            <name>Result Field: document</name>
+            <fieldName>document</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters>
+              <scriptletFilter id="88027db8-9194-486d-a43f-e88783d8f36c">
+                <annotation></annotation>
+                <name>Scriptlet</name>
+                <scriptlet id="6e408673-2e65-41c7-91cd-aadd497ebaaf">
+                  <annotation></annotation>
+                  <name>default</name>
+                  <script>// One-liner to define JSON parser and stringifier.  Minified version of http://www.json.org/json2.js
+if(!this.JSON){this.JSON={};}(function(){function f(n){return n&lt;10?&apos;0&apos;+n:n;} if(typeof Date.prototype.toJSON!==&apos;function&apos;){Date.prototype.toJSON=function(key){return isFinite(this.valueOf())?this.getUTCFullYear()+&apos;-&apos;+ f(this.getUTCMonth()+1)+&apos;-&apos;+f(this.getUTCDate())+&apos;T&apos;+f(this.getUTCHours())+&apos;:&apos;+f(this.getUTCMinutes())+&apos;:&apos;+f(this.getUTCSeconds())+&apos;Z&apos;:null;};String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function(key){return this.valueOf();};} var cx=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,escapable=/[\\\&quot;\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,gap,indent,meta={&apos;\b&apos;:&apos;\\b&apos;,&apos;\t&apos;:&apos;\\t&apos;,&apos;\n&apos;:&apos;\\n&apos;,&apos;\f&apos;:&apos;\\f&apos;,&apos;\r&apos;:&apos;\\r&apos;,&apos;&quot;&apos;:&apos;\\&quot;&apos;,&apos;\\&apos;:&apos;\\\\&apos;},rep;function quote(string){escapable.lastIndex=0;return escapable.test(string)?&apos;&quot;&apos;+string.replace(escapable,function(a){var c=meta[a];return typeof c===&apos;string&apos;?c:&apos;\\u&apos;+(&apos;0000&apos;+a.charCodeAt(0).toString(16)).slice(-4);})+&apos;&quot;&apos;:&apos;&quot;&apos;+string+&apos;&quot;&apos;;} function str(key,holder){var i,k,v,length,mind=gap,partial,value=holder[key];if(value&amp;&amp;typeof value===&apos;object&apos;&amp;&amp;typeof value.toJSON===&apos;function&apos;){value=value.toJSON(key);}if(typeof rep===&apos;function&apos;){value=rep.call(holder,key,value);} switch(typeof value){case&apos;string&apos;:return quote(value);case&apos;number&apos;:return isFinite(value)?String(value):&apos;null&apos;;case&apos;boolean&apos;:case&apos;null&apos;:return String(value);case&apos;object&apos;:if(!value){return&apos;null&apos;;}gap+=indent;partial=[];if(Object.prototype.toString.apply(value)===&apos;[object Array]&apos;){length=value.length;for(i=0;i&lt;length;i+=1){partial[i]=str(i,value)||&apos;null&apos;;} v=partial.length===0?&apos;[]&apos;:gap?&apos;[\n&apos;+gap+partial.join(&apos;,\n&apos;+gap)+&apos;\n&apos;+mind+&apos;]&apos;:&apos;[&apos;+partial.join(&apos;,&apos;)+&apos;]&apos;;gap=mind;return v;}if(rep&amp;&amp;typeof rep===&apos;object&apos;){length=rep.length;for(i=0;i&lt;length;i+=1){k=rep[i];if(typeof k===&apos;string&apos;){v=str(k,value);if(v){partial.push(quote(k)+(gap?&apos;: &apos;:&apos;:&apos;)+v);}}}}else{for(k in value){if(Object.hasOwnProperty.call(value,k)){v=str(k,value);if(v){partial.push(quote(k)+(gap?&apos;: &apos;:&apos;:&apos;)+v);}}}} v=partial.length===0?&apos;{}&apos;:gap?&apos;{\n&apos;+gap+partial.join(&apos;,\n&apos;+gap)+&apos;\n&apos;+ mind+&apos;}&apos;:&apos;{&apos;+partial.join(&apos;,&apos;)+&apos;}&apos;;gap=mind;return v;}} if(typeof JSON.stringify!==&apos;function&apos;){JSON.stringify=function(value,replacer,space){var i;gap=&apos;&apos;;indent=&apos;&apos;;if(typeof space===&apos;number&apos;){for(i=0;i&lt;space;i+=1){indent+=&apos; &apos;;}}else if(typeof space===&apos;string&apos;){indent=space;} rep=replacer;if(replacer&amp;&amp;typeof replacer!==&apos;function&apos;&amp;&amp;(typeof replacer!==&apos;object&apos;||typeof replacer.length!==&apos;number&apos;)){throw new Error(&apos;JSON.stringify&apos;);} return str(&apos;&apos;,{&apos;&apos;:value});};} if(typeof JSON.parse!==&apos;function&apos;){JSON.parse=function(text,reviver){var j;function walk(holder,key){var k,v,value=holder[key];if(value&amp;&amp;typeof value===&apos;object&apos;){for(k in value){if(Object.hasOwnProperty.call(value,k)){v=walk(value,k);if(v!==undefined){value[k]=v;}else{delete value[k];}}}} return reviver.call(holder,key,value);} text=String(text);cx.lastIndex=0;if(cx.test(text)){text=text.replace(cx,function(a){return&apos;\\u&apos;+ (&apos;0000&apos;+a.charCodeAt(0).toString(16)).slice(-4);});} if(/^[\],:{}\s]*$/.test(text.replace(/\\(?:[&quot;\\\/bfnrt]|u[0-9a-fA-F]{4})/g,&apos;@&apos;).replace(/&quot;[^&quot;\\\n\r]*&quot;|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,&apos;]&apos;).replace(/(?:^|:|,)(?:\s*\[)+/g,&apos;&apos;))){j=eval(&apos;(&apos;+text+&apos;)&apos;);return typeof reviver===&apos;function&apos;?walk({&apos;&apos;:j},&apos;&apos;):j;} throw new SyntaxError(&apos;JSON.parse&apos;);};}}());
+ 
+var computeRegion =  scriptletContext.getLocal(&quot;computeRegion&quot;);
+
+// default response
+scriptletResponse = &quot;failure&quot;;
+scriptletResult = &quot;Endpoint not found for region: &apos;&quot; + computeRegion + &quot;&apos;!&quot;;
+
+try {
+    // check to make sure scriptletInput is defined (if there was a failure, it might not be)
+    if (typeof scriptletInput === &quot;undefined&quot;){ 
+        // if scriptletInput is undefined, thow an empty exception, so the final scriptletResult will be empty
+        throw &quot;&quot;;
+    }
+
+    jsObject = JSON.parse(scriptletInput);
+    
+    var serviceCatalog = jsObject.access.serviceCatalog; 
+
+    for (service in serviceCatalog){
+        if (serviceCatalog[service].type == &quot;compute&quot;){
+            // compute can have multiple endpoints, one for each region. 
+            // see if the user specified a reqion. if not, just return the 1st in the array
+            if ( (computeRegion == undefined) || (computeRegion == &apos;&apos;) ){
+                scriptletResult = serviceCatalog[service].endpoints[0].publicURL;
+                scriptletResponse = &quot;success&quot;;
+                break;
+            }
+            
+            // otherwise, iterate through the list, and find the region we&apos;re looking for.
+            for (endpoint in serviceCatalog[service].endpoints){
+                if (serviceCatalog[service].endpoints[endpoint].region == computeRegion){
+                    scriptletResult = serviceCatalog[service].endpoints[endpoint].publicURL;
+                    scriptletResponse = &quot;success&quot;;
+                    break;
+                }
+            }
+            break;
+        }
+    }
+} 
+catch (e){ 
+    scriptletResult = &quot;&quot;+e;
+}
+
+</script>
+                  <type>RHINO</type>
+                </scriptlet>
+              </scriptletFilter>
+            </filters>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="a4670fd4-1fa6-429f-acb3-0c16945efeec">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>authToken</contextKey>
+          <expression id="c91d7949-7bfe-4aaa-b8ad-1664fad6a218">
+            <annotation></annotation>
+            <name>Result Field: document</name>
+            <fieldName>document</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters>
+              <scriptletFilter id="a20075d4-3f54-4b22-aecb-82026f31207a">
+                <annotation></annotation>
+                <name>Scriptlet</name>
+                <scriptlet id="a1191537-97a8-42ac-8694-691f46d451d9">
+                  <annotation></annotation>
+                  <name>default</name>
+                  <script>// One-liner to define JSON parser and stringifier.  Minified version of http://www.json.org/json2.js
+if(!this.JSON){this.JSON={};}(function(){function f(n){return n&lt;10?&apos;0&apos;+n:n;} if(typeof Date.prototype.toJSON!==&apos;function&apos;){Date.prototype.toJSON=function(key){return isFinite(this.valueOf())?this.getUTCFullYear()+&apos;-&apos;+ f(this.getUTCMonth()+1)+&apos;-&apos;+f(this.getUTCDate())+&apos;T&apos;+f(this.getUTCHours())+&apos;:&apos;+f(this.getUTCMinutes())+&apos;:&apos;+f(this.getUTCSeconds())+&apos;Z&apos;:null;};String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function(key){return this.valueOf();};} var cx=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,escapable=/[\\\&quot;\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,gap,indent,meta={&apos;\b&apos;:&apos;\\b&apos;,&apos;\t&apos;:&apos;\\t&apos;,&apos;\n&apos;:&apos;\\n&apos;,&apos;\f&apos;:&apos;\\f&apos;,&apos;\r&apos;:&apos;\\r&apos;,&apos;&quot;&apos;:&apos;\\&quot;&apos;,&apos;\\&apos;:&apos;\\\\&apos;},rep;function quote(string){escapable.lastIndex=0;return escapable.test(string)?&apos;&quot;&apos;+string.replace(escapable,function(a){var c=meta[a];return typeof c===&apos;string&apos;?c:&apos;\\u&apos;+(&apos;0000&apos;+a.charCodeAt(0).toString(16)).slice(-4);})+&apos;&quot;&apos;:&apos;&quot;&apos;+string+&apos;&quot;&apos;;} function str(key,holder){var i,k,v,length,mind=gap,partial,value=holder[key];if(value&amp;&amp;typeof value===&apos;object&apos;&amp;&amp;typeof value.toJSON===&apos;function&apos;){value=value.toJSON(key);}if(typeof rep===&apos;function&apos;){value=rep.call(holder,key,value);} switch(typeof value){case&apos;string&apos;:return quote(value);case&apos;number&apos;:return isFinite(value)?String(value):&apos;null&apos;;case&apos;boolean&apos;:case&apos;null&apos;:return String(value);case&apos;object&apos;:if(!value){return&apos;null&apos;;}gap+=indent;partial=[];if(Object.prototype.toString.apply(value)===&apos;[object Array]&apos;){length=value.length;for(i=0;i&lt;length;i+=1){partial[i]=str(i,value)||&apos;null&apos;;} v=partial.length===0?&apos;[]&apos;:gap?&apos;[\n&apos;+gap+partial.join(&apos;,\n&apos;+gap)+&apos;\n&apos;+mind+&apos;]&apos;:&apos;[&apos;+partial.join(&apos;,&apos;)+&apos;]&apos;;gap=mind;return v;}if(rep&amp;&amp;typeof rep===&apos;object&apos;){length=rep.length;for(i=0;i&lt;length;i+=1){k=rep[i];if(typeof k===&apos;string&apos;){v=str(k,value);if(v){partial.push(quote(k)+(gap?&apos;: &apos;:&apos;:&apos;)+v);}}}}else{for(k in value){if(Object.hasOwnProperty.call(value,k)){v=str(k,value);if(v){partial.push(quote(k)+(gap?&apos;: &apos;:&apos;:&apos;)+v);}}}} v=partial.length===0?&apos;{}&apos;:gap?&apos;{\n&apos;+gap+partial.join(&apos;,\n&apos;+gap)+&apos;\n&apos;+ mind+&apos;}&apos;:&apos;{&apos;+partial.join(&apos;,&apos;)+&apos;}&apos;;gap=mind;return v;}} if(typeof JSON.stringify!==&apos;function&apos;){JSON.stringify=function(value,replacer,space){var i;gap=&apos;&apos;;indent=&apos;&apos;;if(typeof space===&apos;number&apos;){for(i=0;i&lt;space;i+=1){indent+=&apos; &apos;;}}else if(typeof space===&apos;string&apos;){indent=space;} rep=replacer;if(replacer&amp;&amp;typeof replacer!==&apos;function&apos;&amp;&amp;(typeof replacer!==&apos;object&apos;||typeof replacer.length!==&apos;number&apos;)){throw new Error(&apos;JSON.stringify&apos;);} return str(&apos;&apos;,{&apos;&apos;:value});};} if(typeof JSON.parse!==&apos;function&apos;){JSON.parse=function(text,reviver){var j;function walk(holder,key){var k,v,value=holder[key];if(value&amp;&amp;typeof value===&apos;object&apos;){for(k in value){if(Object.hasOwnProperty.call(value,k)){v=walk(value,k);if(v!==undefined){value[k]=v;}else{delete value[k];}}}} return reviver.call(holder,key,value);} text=String(text);cx.lastIndex=0;if(cx.test(text)){text=text.replace(cx,function(a){return&apos;\\u&apos;+ (&apos;0000&apos;+a.charCodeAt(0).toString(16)).slice(-4);});} if(/^[\],:{}\s]*$/.test(text.replace(/\\(?:[&quot;\\\/bfnrt]|u[0-9a-fA-F]{4})/g,&apos;@&apos;).replace(/&quot;[^&quot;\\\n\r]*&quot;|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,&apos;]&apos;).replace(/(?:^|:|,)(?:\s*\[)+/g,&apos;&apos;))){j=eval(&apos;(&apos;+text+&apos;)&apos;);return typeof reviver===&apos;function&apos;?walk({&apos;&apos;:j},&apos;&apos;):j;} throw new SyntaxError(&apos;JSON.parse&apos;);};}}());
+
+// default response
+scriptletResponse = &quot;failure&quot;;
+scriptletResult = &quot;invalid response from keystone server&quot;;
+    
+try {
+    // check to make sure scriptletInput is defined (if there was a failure, it might not be)
+    if (typeof scriptletInput === &quot;undefined&quot;){ 
+        // if scriptletInput is undefined, thow an empty exception, so the final scriptletResult will be empty
+        throw &quot;&quot;;
+    }
+
+    jsObject = JSON.parse(scriptletInput);
+    
+    var tokenId = jsObject.access.token.id; 
+
+    if (typeof(tokenId) != &apos;undefined&apos;){
+        scriptletResult = tokenId; 
+        scriptletResponse = &quot;success&quot;;
+    }
+} 
+catch (e){ 
+    if (! (e instanceof SyntaxError))
+        scriptletResult = &quot;&quot;+e;
+}
+</script>
+                  <type>RHINO</type>
+                </scriptlet>
+              </scriptletFilter>
+            </filters>
+          </expression>
+        </flowVariableAssignment>
+      </assignments>
+      <throttleSize>0</throttleSize>
+    </step>
+    <step id="0e41bb10-eef3-4805-bce4-e2073141d580">
+      <annotation>50ac91e3-02af-4e1e-84d8-0c36b0605c45.0e41bb10-eef3-4805-bce4-e2073141d580.description</annotation>
+      <name>Select Http Client Error</name>
+      <bounds>
+        <x>351.0</x>
+        <y>225.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <iconSpec id="5a8001b5-8f69-43a4-8689-de5f9adbbbc4">
+        <baseIcon>flow.png</baseIcon>
+        <basePath>System</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings>
+        <staticBinding id="26b15018-4055-4fab-b770-3bd88cc017ec">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>document</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="bbe37f33-ba94-4759-9df3-59c78726e582">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>errorMessage</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+      </bindings>
+      <transitions>
+        <transition id="15766dbd-f35c-4d3a-8459-d6d6dad10488">
+          <annotation></annotation>
+          <name>success</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>1408e039-0051-43e1-a8eb-3b399e09a4cd</refId>
+          </destination>
+          <source>
+            <refId>0e41bb10-eef3-4805-bce4-e2073141d580</refId>
+          </source>
+          <positions>
+            <point>
+              <x>794.0</x>
+              <y>358.0</y>
+            </point>
+            <point>
+              <x>974.0</x>
+              <y>358.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>333.0</x>
+            <y>0.0</y>
+          </labelPosition>
+        </transition>
+      </transitions>
+      <properties/>
+      <opRef>
+        <refId>1768fe8a-c248-43cc-bdf0-ef8f909dbe1e</refId>
+      </opRef>
+      <assignments>
+        <flowVariableAssignment id="7d565970-48f6-4f09-b236-b9453d3a2792">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>FailureMessage</contextKey>
+          <expression id="0d9b97e6-13e1-4103-afd5-56ecc751c8b0">
+            <annotation></annotation>
+            <name>Result: FailureMessage</name>
+            <fieldName>FailureMessage</fieldName>
+            <sourceType>AVAILABLE_RESULT</sourceType>
+            <filters/>
+          </expression>
+        </flowVariableAssignment>
+      </assignments>
+      <throttleSize>0</throttleSize>
+    </step>
+    <returnStep id="8673eed9-128b-4372-a389-bcfa0fe31182">
+      <annotation></annotation>
+      <name>No Action Taken : unknown</name>
+      <bounds>
+        <x>171.0</x>
+        <y>225.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="b7a5ab02-dce5-4aa7-b078-15d8318d703f">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>unknown</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>8673eed9-128b-4372-a389-bcfa0fe31182</refId>
+          </destination>
+          <source>
+            <refId>8673eed9-128b-4372-a389-bcfa0fe31182</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>NO_ACTION_TAKEN</returnStepType>
+      <assignments/>
+    </returnStep>
+    <returnStep id="1408e039-0051-43e1-a8eb-3b399e09a4cd">
+      <annotation></annotation>
+      <name>Error : failure</name>
+      <bounds>
+        <x>531.0</x>
+        <y>225.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="d266d5ea-ce6c-4160-8c48-e44cae89163b">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>1408e039-0051-43e1-a8eb-3b399e09a4cd</refId>
+          </destination>
+          <source>
+            <refId>1408e039-0051-43e1-a8eb-3b399e09a4cd</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>ERROR</returnStepType>
+      <assignments/>
+    </returnStep>
+    <returnStep id="0ecaebbf-95f6-4543-a1eb-032d635e2308">
+      <annotation></annotation>
+      <name>Resolved : success</name>
+      <bounds>
+        <x>531.0</x>
+        <y>45.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="16bf5f32-7e0e-4442-907f-b882b0dd53a8">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>0ecaebbf-95f6-4543-a1eb-032d635e2308</refId>
+          </destination>
+          <source>
+            <refId>0ecaebbf-95f6-4543-a1eb-032d635e2308</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>RESOLVED</returnStepType>
+      <assignments/>
+    </returnStep>
+  </steps>
+  <startSteps>9bd9bb1a-35c0-49eb-82b4-af79de61ca81</startSteps>
+</flow>

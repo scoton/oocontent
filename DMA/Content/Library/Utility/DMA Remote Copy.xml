@@ -351,43 +351,6 @@
             <y>0.0</y>
           </labelPosition>
         </transition>
-        <transition id="f4927cf9-d95b-461f-9100-db007665d10e">
-          <annotation></annotation>
-          <name>other</name>
-          <command>NEXT</command>
-          <linkMode>false</linkMode>
-          <responseSymbol>other</responseSymbol>
-          <shouldHandoff>false</shouldHandoff>
-          <transitionValue>0.0</transitionValue>
-          <destination>
-            <refId>cd279a52-c353-49b1-8c69-0ea9f519be5e</refId>
-          </destination>
-          <source>
-            <refId>8bd4a2ae-39d9-43c4-acb4-3caa0eaedf78</refId>
-          </source>
-          <positions>
-            <point>
-              <x>406.2120141342756</x>
-              <y>98.0</y>
-            </point>
-            <point>
-              <x>392.0</x>
-              <y>154.0</y>
-            </point>
-            <point>
-              <x>394.0</x>
-              <y>188.0</y>
-            </point>
-            <point>
-              <x>422.0</x>
-              <y>350.0</y>
-            </point>
-          </positions>
-          <labelPosition>
-            <x>333.0</x>
-            <y>0.0</y>
-          </labelPosition>
-        </transition>
         <transition id="21c69092-5d62-4eed-af54-91a9252e7014">
           <annotation></annotation>
           <name>linux</name>
@@ -439,6 +402,43 @@
             <point>
               <x>627.0</x>
               <y>88.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>333.0</x>
+            <y>0.0</y>
+          </labelPosition>
+        </transition>
+        <transition id="e3ced3d2-a935-4eea-8296-0e43f0bc23e8">
+          <annotation></annotation>
+          <name>other</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>other</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>cf0de772-3055-48ae-9419-57241a0ce23f</refId>
+          </destination>
+          <source>
+            <refId>8bd4a2ae-39d9-43c4-acb4-3caa0eaedf78</refId>
+          </source>
+          <positions>
+            <point>
+              <x>422.0</x>
+              <y>66.0</y>
+            </point>
+            <point>
+              <x>375.9715442178155</x>
+              <y>111.8953293735592</y>
+            </point>
+            <point>
+              <x>347.9989690112844</x>
+              <y>123.36609762371947</y>
+            </point>
+            <point>
+              <x>283.0</x>
+              <y>123.0</y>
             </point>
           </positions>
           <labelPosition>
@@ -1014,12 +1014,6 @@
       </bounds>
       <layer>-1</layer>
       <hideInbound>false</hideInbound>
-      <iconSpec id="80f55406-c97f-4e75-9741-2f34bdb2c38c">
-        <baseIcon>return_failure.png</baseIcon>
-        <basePath>System</basePath>
-        <readOnly>true</readOnly>
-        <layers/>
-      </iconSpec>
       <addResultToRunContext>false</addResultToRunContext>
       <isCriticalStep>false</isCriticalStep>
       <isNonBlocking>false</isNonBlocking>
@@ -1695,8 +1689,8 @@
       <annotation></annotation>
       <name>DMA Remote Linux Copy</name>
       <bounds>
-        <x>274.0</x>
-        <y>209.0</y>
+        <x>295.0</x>
+        <y>194.0</y>
       </bounds>
       <layer>-1</layer>
       <hideInbound>false</hideInbound>

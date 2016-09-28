@@ -50,8 +50,8 @@
       <annotation>8e712da3-0a81-41c1-be8c-89da28faa107.71625e85-a6f0-4eb1-96bf-0571e14763d2.description</annotation>
       <name>Http Client Get List</name>
       <bounds>
-        <x>227.0</x>
-        <y>182.0</y>
+        <x>225.0</x>
+        <y>121.0</y>
       </bounds>
       <layer>-1</layer>
       <hideInbound>false</hideInbound>

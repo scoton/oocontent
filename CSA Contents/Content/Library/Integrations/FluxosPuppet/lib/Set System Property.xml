@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="1d4024ac-8288-4237-9551-ae320db50568">
+  <descriptionCdata><![CDATA[1d4024ac-8288-4237-9551-ae320db50568.description=<pre>\nSet System Property - Updates a system property in Central. On Operations Orchestration versions earlier than 10.20, you can also create a system property using this operation.\n\nInputs\:\n    host - The host running the Central service.\nDefault value\: localhost\n    port - The port the Central service is running on.\nDefault\: 8080\n    protocol - The protocol used to communicate to the Central service.\nDefault value\: http\nValid values\: http, https\n    username - The username to use when connecting to the Central service.\n    password - The password to use when connecting to the Central service.\n    propertyName - The name of the system property to set or the relative path to it. Path values are accepted only on Central versions 10.20 or later. For example, if the item is stored at Configuration/SystemAccounts/folder/sa.xml, the relative path is folder/sa.\nExamples\: myProperty, dir1/dir11/my-property\n    propertyValue - The system property value.  \n    createNewProperty - A boolean value. If "true", the system property must not exist and will be created. If "false", the system property must exist, and will be updated. If empty it it will first try to create and then in case of failure it will update the property.\n    persistInDatabase - A boolean value. If the value is "false" there value will not be persisted in the database (no REST calls will be made). If "true" a REST call to "rest/content-config" will be executed to set the system property.\nDefault value\: true\nValid values\: true, false\n    version - The Central version. If empty, the operation will obtain the version from the specified host.\nValid values\: 10.00, 10.10, 10.20, 10.22, 10.50\nDefault value\: 10.00 (in case the version of the Central instance could not be determined)\n\nResults\:\n    returnResult - This is the primary output. A message containing the action that was executed.\n    reponse - The response value of the operation.The possible values are\: "success" or "failure".\n\nResponses\:\n    success - The flow completed as stated in the description.\n    failure - The flow completed unsuccessfully.\n\nNotes\:\n1. You may add these inputs\:\n    CENTRAL_URL - The url to the central server in the format protocol\://host\:port/oo. The value for this input will be populated by default from context if run in central.\nExample\: http\://localhost\:8080/oo\n    authType - The type of authentication used by this operation when trying to execute the request on the target server.\nValid values\: basic, form, springForm, digest, ntlm, kerberos, anonymous (no authentication).\nDefault value\: anonymous - authentication not used when executing the request.\n    proxy - The proxy server used to access the web site.\n    proxyPort - The proxy server port.\nDefault value\: 8080\n    proxyUsername - The proxy server user name.\n    proxyPassword - The proxy server password associated with the "proxyUsername" input value.\n    trustAllRoots - Specifies whether to enable weak security over SSL. A SSL certificate is trusted even if no trusted certification authority issued it.\nValid values\: true, false\nDefault value\: true\n    keystore - The location of the KeyStore file - a URL or the local path to it. This input is empty if no HTTPS client authentication is used. The default value will be provided if "trustAllRoots" is "false".\nDefault value\: "OO_Home"/java/lib/security/cacerts\n    keystorePassword - The password associated with the KeyStore file. If "trustAllRoots" is "false" and "keystore" is empty, "keystorePassword" default will be supplied.\nDefault value\: changeit\n    trustKeystore - The location of the TrustStore file - a URL or the local path to it. This input is empty if no HTTPS server authentication is used. The default value will be provided if "trustAllRoots" is "false".\nDefault\: "OO_Home"/java/lib/security/cacerts\n    trustPassword - The password associated with the TrustStore file. If "trustAllRoots" is "false" and "trustKeystore" is empty, "trustPassword" default will be supplied.\nDefault value\: changeit\n    timeout - The time to wait for a connection to be established, in milliseconds. This input needs a value greater than or equal to zero. A <timeout> value of '0' represents an infinite timeout.\nDefault value\: 0\n2. You can use KeyTool to import a SSL certificate in a KeyStore. For example, to import a certificate in the Java cacerts KeyStore, run\: keytool -import -file c\:/../<your_cert>.cer -alias <your_alias> -keystore "OO_Home"/java/lib/security/cacerts -keystorepass changeit. If the KeyStore does not exist, the command tries to create a new one containing only your certificate.\n3. You can use KeyTool to create a certificate chain through the following command\: \n    keytool -genkey -dname "cn\=Mark Jones, ou\=JavaSoft, o\=Sun, c\=US" \n        -alias business -keypass kpi135 -keystore C\:\\working\\mykeystore \n        -storepass ab987c -validity 180\nThis creates a certificate chain in a new KeyStore containing only one certificate. It is useful in SSL client authentication because the KeyManager ignores any certificates not included in a certificate chain.\n4. If the value assigned to the "trustAllRoots" input is "false" and "trustKeystore" is empty, the operation tries to use the default trust store, using the password "changeit". \n5. If the authentication type is Kerberos, you might need to add an SPN (Service Principal Name) for the web server's computer account.  In order to do this, you can use ADUC (Active Directory Users and Computers) with enabled 'Advanced Features'. Go to the web server's computer account (example\: CN\=<web_server_name>,CN\=Computers,DC\=domain,DC\=com), open the 'Properties' window and press the 'Attribute Editor' tab. Observe the values of the 'servicePrincipalName' attribute and add your SPN if not present. For example, HTTP/<web_server_FQDN>\:port.\n6. Apache Tomcat is currently the only supported application server when using form-based authentication.\n</pre>\n
+]]></descriptionCdata>
+  <annotation>1d4024ac-8288-4237-9551-ae320db50568.description</annotation>
+  <name>Set System Property</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="6c403d45-bc3d-40d7-afff-5580a83f08ba">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="d5af62a7-409e-4c4d-bb8d-6dd040dc290b">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>port</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="18407ab8-dacb-4271-aa20-6dcad7f843b7">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>protocol</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>57b095ca-e290-419b-a2a4-01107404e31e</refId>
+        <refName>Protocol - http Default</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="4a42b806-6696-4dfb-b103-c0e5d7964d39">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="1b53243a-f35c-44ad-a19a-5da4ea720850">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="a1c722dc-b85a-4057-81b6-82be99723fcb">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>propertyName</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="7e566af5-86de-488b-8b39-3376c2d3cc09">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>propertyValue</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="54aa63bd-fd34-4250-b41b-7b44581bfa9b">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>createNewProperty</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>96a1ed25-cdc9-4ff6-8fba-e9c044c5ca53</refId>
+        <refName>Boolean - False Default</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="81a22934-0f92-4083-9aca-79143f76db9d">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>persistInDatabase</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="73f30014-44e9-4dfe-8746-7bd9009f22e4">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>version</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>10.00</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <scriptlet id="8f6c8933-4a7a-4f16-b436-c3dd53a5efde">
+    <annotation></annotation>
+    <name>Operation Set System Property (4f6d04f5-e72d-4233-9713-b81ff9beb7f0)</name>
+    <script>if (&quot;failure&quot; != scriptletRawResult[&apos;response&apos;]) {
+	try {
+		//default persist set as in description
+		var persistVal=false;
+		//default create new set as in description
+		var createNewProp=true;
+		var createNewPropEmpty=false;
+		if(&quot;undefined&quot; != typeof createNewProperty &amp;&amp; createNewProperty!=null &amp;&amp; !createNewProperty.equals(&quot;&quot;)){
+			createNewProp=java.lang.Boolean.parseBoolean(createNewProperty);
+		} else {
+			createNewPropEmpty=true;
+		}
+		if (&quot;undefined&quot; == typeof propertyValue) {
+			propertyValue=&quot;&quot;;
+		}
+			prop = scriptletContext.get(propertyName);
+			if (createNewProp) {
+				if (prop==null || createNewPropEmpty) {
+					scriptletResponse = &quot;success&quot;;
+					scriptletContext.putGlobal(propertyName, propertyValue);
+					scriptletResult = &quot;System property was successfully set&quot;;
+				} else{
+					scriptletResponse = &quot;failure&quot;;
+					scriptletResult = &quot;The specified property already exists.&quot;;    
+				}
+			} else {
+				
+					scriptletResponse = &quot;success&quot;;
+					scriptletContext.putGlobal(propertyName, propertyValue);
+					scriptletResult = &quot;System property was successfully set&quot;;				
+			}
+			if (scriptletResponse.equals(&quot;success&quot;)) {
+				scriptletRawResult[&apos;returnCode&apos;] = &quot;0&quot;;
+				scriptletContext.putGlobal(&apos;returnCode&apos;, &apos;0&apos;);
+				scriptletContext.putGlobal(&apos;response&apos;, &apos;success&apos;);
+			} else {
+				scriptletRawResult[&apos;returnCode&apos;] = &quot;1&quot;;
+				scriptletContext.putGlobal(&apos;returnCode&apos;, &apos;1&apos;);
+				scriptletContext.putGlobal(&apos;response&apos;, &apos;failure&apos;);
+			}    
+	} catch (e) {
+		scriptletResponse = &quot;failure&quot;;
+		scriptletRawResult[&apos;returnCode&apos;] = &quot;1&quot;;
+		scriptletContext.putGlobal(&apos;returnCode&apos;, &apos;1&apos;);    
+		scriptletResult = &quot;&quot; + e;
+		scriptletContext.put(&quot;FailureMessage&quot;, &quot;&quot; + e);
+	}
+}</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="7e026015-d837-434c-b794-baea6f079d27">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="ba3a1971-03d7-43d9-88c6-b9055602f5c4">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="df7bf9f3-b093-4385-9d74-72e1a30a3464">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="59ea7784-6311-44ec-b51c-1dc1f323d438">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="13204189-935f-4d1e-9fea-025f9e641490">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="5ea20978-97f2-4374-aeba-c30e9f52a9fd">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="7acb6c05-27a7-40b2-a010-908b65ea913e">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="5f41e586-bb0a-42da-972e-1d9d01a99d3e">
+    <baseIcon>document_text.png</baseIcon>
+    <basePath>/Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <opRef>
+    <refId>88991b3a-756d-44b9-9fed-107caf581624</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

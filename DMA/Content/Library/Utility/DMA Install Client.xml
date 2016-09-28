@@ -306,43 +306,6 @@
             <y>0.0</y>
           </labelPosition>
         </transition>
-        <transition id="d6ccfd79-064f-4852-a9ba-c96f602a3e01">
-          <annotation></annotation>
-          <name>other</name>
-          <command>NEXT</command>
-          <linkMode>false</linkMode>
-          <responseSymbol>other</responseSymbol>
-          <shouldHandoff>false</shouldHandoff>
-          <transitionValue>0.0</transitionValue>
-          <destination>
-            <refId>37d5ad4b-c702-405e-9c7d-b6160f2e2608</refId>
-          </destination>
-          <source>
-            <refId>0e4b1c34-d4c0-46e3-aa91-f09854aeedd9</refId>
-          </source>
-          <positions>
-            <point>
-              <x>460.0</x>
-              <y>122.0</y>
-            </point>
-            <point>
-              <x>483.60640763046257</x>
-              <y>182.56184870679263</y>
-            </point>
-            <point>
-              <x>482.38023276207144</x>
-              <y>235.59391176471107</y>
-            </point>
-            <point>
-              <x>456.0</x>
-              <y>295.0</y>
-            </point>
-          </positions>
-          <labelPosition>
-            <x>333.0</x>
-            <y>0.0</y>
-          </labelPosition>
-        </transition>
         <transition id="1863d6f8-9fa2-4e53-b101-e03ff22ed697">
           <annotation></annotation>
           <name>solaris</name>
@@ -380,6 +343,35 @@
             <y>0.0</y>
           </labelPosition>
         </transition>
+        <transition id="16a24ee4-57f4-44a9-af1c-6782c6cdc40d">
+          <annotation></annotation>
+          <name>other</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>other</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>6b57531d-e8dd-4ec7-a1df-1168b449aa63</refId>
+          </destination>
+          <source>
+            <refId>0e4b1c34-d4c0-46e3-aa91-f09854aeedd9</refId>
+          </source>
+          <positions>
+            <point>
+              <x>460.0</x>
+              <y>122.0</y>
+            </point>
+            <point>
+              <x>150.0</x>
+              <y>202.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>333.0</x>
+            <y>0.0</y>
+          </labelPosition>
+        </transition>
       </transitions>
       <properties/>
       <opRef>
@@ -397,12 +389,6 @@
       </bounds>
       <layer>-1</layer>
       <hideInbound>false</hideInbound>
-      <iconSpec id="b8d408bb-e234-43bd-8047-e04dde34420c">
-        <baseIcon>return_failure.png</baseIcon>
-        <basePath>System</basePath>
-        <readOnly>true</readOnly>
-        <layers/>
-      </iconSpec>
       <addResultToRunContext>false</addResultToRunContext>
       <isCriticalStep>false</isCriticalStep>
       <isNonBlocking>false</isNonBlocking>
@@ -442,8 +428,8 @@
       <annotation></annotation>
       <name>DMA Install Linux Client</name>
       <bounds>
-        <x>147.0</x>
-        <y>217.0</y>
+        <x>100.0</x>
+        <y>168.0</y>
       </bounds>
       <layer>-1</layer>
       <hideInbound>false</hideInbound>
